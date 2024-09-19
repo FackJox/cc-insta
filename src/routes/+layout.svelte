@@ -6,26 +6,38 @@
     let loading = true;
 
     onMount(() => {
-        loading = false;
+        setTimeout(() => {
+            loading = false;
+        }, 1000); // 5000 milliseconds = 5 seconds
     });
+
+
+onMount(() => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+});
 </script>
 
 {#if loading}
     <Loader />
+{:else}
+    <slot />
+
+    <div class="navigations-div">
+        <Navigations />
+    </div>
 {/if}
-
-<slot />
-
-<div class="navigations-div">
-    <Navigations />
-</div>
 
 <style>
     .navigations-div {
         width: 100%;
         height: 40px;
         background-color: rgb(255, 255, 255);
-        position: sticky;
-        bottom: 0px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding-bottom: env(safe-area-inset-bottom);
     }
 </style>

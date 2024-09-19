@@ -1,6 +1,11 @@
 <!-- MessageHeader.svelte -->
+<script>
+  function back() {
+    history.back();
+  }
+</script>
 <div class="msg-header">
-    <img src="icons/back.png" alt="" width="25" onclick="back()">
+    <img src="icons/back.png" alt="" width="25" on:click={back}>
     <span>krushnasahane7</span>
   </div>
   

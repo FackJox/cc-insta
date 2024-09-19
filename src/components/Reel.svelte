@@ -4,25 +4,27 @@
     
     let videoElement;
     
-    function handleMouseOver() {
+    function handleTap() {
         if (videoElement.paused) {
             const allVideos = document.querySelectorAll('video');
             allVideos.forEach(v => v.pause());
             videoElement.play();
+        } else {
+            videoElement.pause();
         }
     }
     
-    function handleDoubleClick() {
-        videoElement.muted = !videoElement.muted;
-    }
-    </script>
-    
-    <div class="section">
-        <video {src} width="100%" loop bind:this={videoElement}
-               on:mouseover={handleMouseOver}
-               on:dblclick={handleDoubleClick}>
-            Video cannot be played
-        </video>
+  
+</script>
+
+<div class="section">
+
+    <video {src} width="100%" loop bind:this={videoElement}
+           on:click={handleTap} >
+        Video cannot be played
+    </video>
+
+
         <div class="aside">
             <img src="icons/heart.png" width="25" alt="" />
             <img src="icons/chat.png" width="25" alt="" />

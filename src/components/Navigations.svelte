@@ -25,7 +25,7 @@
     background-color: rgb(255, 255, 255);
     position: sticky;
     bottom: 0px;
-    margin-top: 15px;
+    margin-top: px;
     display: flex;
     flex-direction: row;
     align-items: center;

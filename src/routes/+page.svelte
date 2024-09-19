@@ -1,7 +1,7 @@
 <script>
     import { goto } from "$app/navigation";
-    import Feed from "../components/Feed.svelte";
-    import Stories from "../components/Stories.svelte";
+    import Feed from "../components/homepage/Feed.svelte";
+    import Stories from "../components/homepage/Stories.svelte";
 
     
     // function homePage() {
@@ -19,6 +19,14 @@
 
     //
     //     }
+
+    if ('Notification' in window) {
+  Notification.requestPermission().then((permission) => {
+    if (permission === 'granted') {
+      // Set up push notifications
+    }
+  });
+}
 
     function redirectTo(path) {
         goto(path);
