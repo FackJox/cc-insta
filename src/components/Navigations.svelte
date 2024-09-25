@@ -9,11 +9,11 @@
 <main>
     <!-- navigations -->
     <div class="navigations" id="navigations">
-        <img src="icons/homepage.png" alt="Home" width="25" height="25" id="home" on:click={() => redirectTo('/')}>
-        <img src="icons/search.png" alt="Search" width="25" height="25" on:click={() => redirectTo('/search')}>
-        <img src="icons/add.png" alt="Add" width="25" height="25"on:click={() => alert('Page not available...!\nYou can enjoy the reels ❣')}>
-        <img src="icons/reel.webp" alt="Reels" width="25" height="25" id="reel" on:click={() => redirectTo('/reels')}>
-        <img src="assets/krish.jpg" width="25" height="25" style="border-radius: 50%;" on:click={() => redirectTo('/profile')} alt="krish">
+        <img src="/icons/homepage.png" alt="Home" width="25" height="25" id="home" on:click={() => redirectTo('/')}>
+        <img src="/icons/search.png" alt="Search" width="25" height="25" on:click={() => redirectTo('/search')}>
+        <img src="/icons/add.png" alt="Add" width="25" height="25"on:click={() => alert('Page not available...!\nYou can enjoy the reels ❣')}>
+        <img src="/icons/reel.webp" alt="Reels" width="25" height="25" id="reel" on:click={() => redirectTo('/reels')}>
+        <img src="/assets/krish.jpg" width="25" height="25" style="border-radius: 50%;" on:click={() => redirectTo('/profile')} alt="krish">
     </div>
     <!-- end navigations -->
 </main>
