@@ -3,7 +3,7 @@
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
     import { writable } from 'svelte/store';
-    import { conversations } from '$lib/messagescript.js';
+    import { conversations } from '$lib/messageScript.js';
   
     let conversationId;
     let conversationStore = writable(null);
@@ -19,7 +19,7 @@
         let foundConversation = convs.find(c => c.id === conversationId);
   
         if (!foundConversation) {
-          // If conversation doesn't exist, create it from messagescript.js
+          // If conversation doesn't exist, create it from messageScript.js
           const originalConv = conversations.find(c => c.id === conversationId);
           if (originalConv) {
             foundConversation = { ...originalConv, messages: [] };

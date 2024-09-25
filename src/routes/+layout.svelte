@@ -2,10 +2,10 @@
   import Loader from "../components/Loader.svelte";
   import { onMount, setContext } from "svelte";
   import Navigations from "../components/Navigations.svelte";
-  import { conversations } from "../lib/messagescript.js";
+  import { conversations } from "../lib/messageScript.js";
   import { writable } from 'svelte/store';
-  import { comments } from "../lib/commentscript.js";
-  import { feedcharacters } from "../lib/feedcharacters.js";
+  import { comments } from "../lib/commentScript.js";
+  import { feedcharacters } from "../lib/feedCharacters.js";
 
   let loading = true;
   const storedConversations = writable([]);
@@ -27,7 +27,7 @@
         messages: []
       }));
     } else {
-      // Ensure all conversations from messagescript.js are present
+      // Ensure all conversations from messageScript.js are present
       conversations.forEach(conv => {
         if (!loadedConversations.find(c => c.id === conv.id)) {
           loadedConversations.push({

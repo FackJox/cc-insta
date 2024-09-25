@@ -1,6 +1,6 @@
 <script>
     import { getContext, onMount } from 'svelte';
-    import { conversations } from '$lib/messagescript.js';
+    import { conversations } from '$lib/messageScript.js';
   
     export let conversationId;
   
@@ -20,7 +20,7 @@
       ? new Date(conversation.messages[conversation.messages.length - 1].timestamp)
       : null;
   
-    // Fetch the conversation character info from messagescript.js
+    // Fetch the conversation character info from messageScript.js
     $: characterInfo = conversations.find(c => c.id === conversationId)?.character || {};
   
     function formatLastMessaged(timestamp) {
