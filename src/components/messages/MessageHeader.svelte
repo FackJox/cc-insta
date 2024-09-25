@@ -6,7 +6,7 @@
   }
 </script>
 
-<div class="conversations">
+<div class="message-header">
   <div class="msg-header">
     <img src="icons/back.png" alt="" width="25" on:click={back}>
     <span>ceci.love</span>
@@ -14,28 +14,32 @@
   
   <input type="text" id="search-msg" placeholder="Search">
   
-  <div class="row-1">
-    <div class="col-1">Messages</div>
-    <div class="col-2">Requests</div>
+  <div class="buttons">
+    <div class="messages">Messages</div>
+    <div class="requests">Requests</div>
   </div>
 </div>
 
 <style>
-  .conversations {
-    width: calc(100% - 20px);
-    overflow: auto;
-    color: black;
+  .message-header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+    width: 100%;
     padding: 10px;
+    box-sizing: border-box;
   }
 
-  .conversations .msg-header {
+  .msg-header {
     font-weight: bold;
     display: flex;
     flex-direction: row;
     gap: 20px;
+    align-items: center;
   }
 
-  .conversations #search-msg {
+  #search-msg {
     height: 30px;
     margin: 20px 0;
     padding: 3px 10px;
@@ -44,19 +48,20 @@
     outline: none;
     border: none;
     background-color: rgb(222, 224, 226);
+    box-sizing: border-box;
   }
 
-  .conversations .row-1 {
+  .buttons {
     display: flex;
     flex-direction: row;
-    place-content: space-between;
+    justify-content: space-between;
   }
 
-  .conversations .row-1 .col-1 {
+  .buttons .messages {
     font-weight: bold;
   }
 
-  .conversations .row-1 .col-2 {
+  .buttons .requests {
     color: rgb(0, 140, 255);
     cursor: pointer;
   }

@@ -6,6 +6,12 @@
   
     const storedConversations = getContext('storedConversations');
   
+
+    $: truncatedLastMessage = lastMessage.length > 25 
+        ? lastMessage.slice(0, 25) + '...' 
+        : lastMessage;
+
+
     $: conversation = $storedConversations.find(c => c.id === conversationId) || { messages: [] };
     $: lastMessage = conversation.messages.length > 0 
       ? conversation.messages[conversation.messages.length - 1].text 
@@ -54,20 +60,20 @@
 </script>
 
 <div class="row">
-  <div class="col">
-    <img src={characterInfo.image} alt={characterInfo.name} width="50">
-  </div>
-  <div class="col message-content">
-    <label>{characterInfo.name}</label>
-    <div class="message-info">
-      <span class="last-message">{lastMessage}</span>
-      <span class="last-messaged">· {lastMessaged}</span>
+    <div class="col">
+      <img src={characterInfo.image} alt={characterInfo.name} width="50">
+    </div>
+    <div class="col message-content">
+      <label>{characterInfo.name}</label>
+      <div class="message-info">
+        <span class="last-message">{truncatedLastMessage}</span>
+        <span class="last-messaged">· {lastMessaged}</span>
+      </div>
+    </div>
+    <div class="col">
+      <img src="icons/icons8-camera-50.png" alt="" width="25">
     </div>
   </div>
-  <div class="col">
-    <img src="icons/icons8-camera-50.png" alt="" width="25">
-  </div>
-</div>
 
 <style>
   .row {

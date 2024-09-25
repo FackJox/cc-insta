@@ -81,94 +81,168 @@
     <div class="conversation">
         <!-- Header -->
         <div class="header">
-            <button on:click={goBack}>Back</button>
-            <span>{$conversationStore.character.name}</span>
+            <button on:click={goBack} class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <div class="user-info">
+                <img src={$conversationStore.character.profilePic} alt={$conversationStore.character.name} class="profile-pic">
+                <span class="username">{$conversationStore.character.name}</span>
+            </div>
         </div>
 
         <!-- Messages -->
-        <div class="messages">
-            {#each $conversationStore.messages as msg}
-                <div class="message {msg.day === 'You' ? 'sent' : 'received'}">
-                    <div class="message-content">
-                        <span>{msg.text}</span>
+        <div class="messages-container">
+            <div class="messages">
+                {#each $conversationStore.messages as msg}
+                    <div class="message {msg.day === 'You' ? 'sent' : 'received'}">
+                        <div class="message-content">
+                            <span>{msg.text}</span>
+                        </div>
                     </div>
-                </div>
-            {/each}
+                {/each}
+            </div>
         </div>
 
-        <!-- Input Area -->
-        <div class="input-area">
-            <input
-                type="text"
-                bind:value={newMessage}
-                placeholder="Type a message..."
-                on:keyup={(e) => e.key === 'Enter' && sendMessage()}
-            />
-            <button on:click={sendMessage}>Send</button>
-        </div>
+   <!-- Input Area -->
+   <div class="input-container">
+    <div class="input-area">
+        <input
+            type="text"
+            bind:value={newMessage}
+            placeholder="Message..."
+            on:keyup={(e) => e.key === 'Enter' && sendMessage()}
+        />
+        <button on:click={sendMessage} class="send-button" disabled={!newMessage.trim()}>Send</button>
+    </div>
+</div>
     </div>
 {:else}
     <p>Loading...</p>
 {/if}
-  <style>
-    /* Styles for the conversation */
+
+<style>
     .conversation {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 40px); /* Subtract the height of the navigation bar */
+        background-color: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
-  
+
     .header {
-      display: flex;
-      align-items: center;
-      padding: 10px;
+        display: flex;
+        align-items: center;
+        padding: 10px 16px;
+        border-bottom: 1px solid #dbdbdb;
+        background-color: #fff;
     }
-  
-    .header button {
-      margin-right: 10px;
+
+    .back-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 16px;
     }
-  
-    .messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px;
+
+    .user-info {
+        display: flex;
+        align-items: center;
     }
-  
+
+    .profile-pic {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        margin-right: 12px;
+    }
+
+    .username {
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .messages-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #fff;
+}
+
+
+.messages {
+    padding: 16px;
+}
+
     .message {
-      margin-bottom: 10px;
+        margin-bottom: 8px;
+        display: flex;
     }
-  
+
     .message.sent {
-      text-align: right;
+        justify-content: flex-end;
     }
-  
+
     .message-content {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 10px;
+        max-width: 70%;
+        padding: 8px 12px;
+        border-radius: 22px;
+        font-size: 14px;
+        line-height: 1.4;
     }
-  
+
     .message.sent .message-content {
-      background-color: #dcf8c6;
+        background-color: #98dd63;
+        color: #000;
     }
-  
+
     .message.received .message-content {
-      background-color: #f1f0f0;
+        background-color: #3897f0;
+        color: #fff;
     }
-  
+
+    .input-container {
+        position: sticky;
+        bottom: 0;
+        background-color: #fff;
+        border-top: 1px solid #dbdbdb;
+        padding-bottom: 10px; /* Add some padding at the bottom */
+
+    }
+
     .input-area {
-      display: flex;
-      padding: 10px;
+        display: flex;
+        align-items: center;
+        padding: 10px 16px;
     }
-  
+
     .input-area input {
-      flex: 1;
-      padding: 10px;
-      font-size: 14px;
+        flex: 1;
+        padding: 10px 12px;
+        font-size: 14px;
+        border: 1px solid #dbdbdb;
+        border-radius: 22px;
+        outline: none;
+        background-color: #f5f5f5;
     }
-  
-    .input-area button {
-      padding: 0 20px;
-      font-size: 14px;
+
+    .input-area input::placeholder {
+        color: #8e8e8e;
     }
-  </style>
+
+    .send-button {
+        background: none;
+        border: none;
+        color: #3897f0;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 0 0 0 16px;
+        cursor: pointer;
+        min-width: 44px;
+    }
+
+    .send-button:disabled {
+        color: #b2dffc;
+    }
+</style>

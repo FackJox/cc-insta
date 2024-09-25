@@ -34,22 +34,32 @@
   });
 </script>
 
-<main>
-  <div class="conversations">
-    <MessageHeader />
-       
-    <div class="conversation-list">
-      {#each $activeConversations as conversation (conversation.id)}
-        <div on:click={() => openConversation(conversation.id)}>
-          <MessageItem conversationId={conversation.id} />
-        </div>
-      {/each}
-    </div>
+<main class="conversations-page">
+  <MessageHeader />
+  <div class="conversation-list">
+    {#each $activeConversations as conversation (conversation.id)}
+      <div on:click={() => openConversation(conversation.id)} on:keydown={(e) => e.key === 'Enter' && openConversation(conversation.id)} tabindex="0" role="button">
+        <MessageItem conversationId={conversation.id} />
+      </div>
+    {/each}
   </div>
 </main>
 
 <style>
-  .conversations {
-    display: block;
+  .conversations-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .conversation-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 10px;
+  }
+
+  .conversation-list > div {
+    cursor: pointer;
   }
 </style>
