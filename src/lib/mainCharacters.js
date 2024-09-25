@@ -12,7 +12,7 @@ export const feedcharacters = [
         following: "",
         name: "Ceci Summer",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "New Collection", picture: "/assets/couture_story1.webp" },
           { title: "Behind the Scenes", picture: "/assets/couture_story2.webp" }
         ]
@@ -30,7 +30,7 @@ export const feedcharacters = [
         following: "",
         name: "The Magician",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "Family Dinner", picture: "/assets/familia_story1.webp" },
           { title: "Weekend Trip", picture: "/assets/familia_story2.webp" }
         ]
@@ -48,7 +48,7 @@ export const feedcharacters = [
         following: "",
         name: "The Fool",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "Tech News", picture: "/assets/info_story1.webp" },
           { title: "Data Viz", picture: "/assets/info_story2.webp" }
         ]
@@ -66,7 +66,7 @@ export const feedcharacters = [
         following: "",
         name: "The Empress",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "VR Demo", picture: "/assets/reality_story1.webp" },
           { title: "AR Showcase", picture: "/assets/reality_story2.webp" }
         ]
@@ -84,7 +84,7 @@ export const feedcharacters = [
         following: "",
         name: "The Emperor",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "Community Event", picture: "/assets/people_story1.webp" },
           { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
         ]
@@ -102,7 +102,7 @@ export const feedcharacters = [
         following: "",
         name: "The World",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "Community Event", picture: "/assets/people_story1.webp" },
           { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
         ]
@@ -120,7 +120,7 @@ export const feedcharacters = [
         following: "",
         name: "The High Priestess",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "Community Event", picture: "/assets/people_story1.webp" },
           { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
         ]
@@ -138,7 +138,7 @@ export const feedcharacters = [
         following: "",
         name: "The Chariot",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "Community Event", picture: "/assets/people_story1.webp" },
           { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
         ]
@@ -156,7 +156,7 @@ export const feedcharacters = [
         following: "",
         name: "The Lovers",
         initialPosts: "",
-        stories: [
+        highlights: [
           { title: "Community Event", picture: "/assets/people_story1.webp" },
           { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
         ]

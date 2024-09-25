@@ -1,57 +1,56 @@
+<script>
+    import { feedcharacters as mainCharacters } from '$lib/mainCharacters.js';
+    import { feedcharacters } from '$lib/feedCharacters.js';
+    import { page } from '$app/stores';
+  
+    $: profile = mainCharacters.find(char => char.username === $page.params.id) || mainCharacters[0];
+  </script>
+     
      <main>
-         <!-- profile Page -->
-      <div class="profile-page" id="profile-page">
-        <div class="header">
-            <label for="name">krushnasahane7</label>
-        </div>
-        <div class="profile-box">
+        <!-- profile Page -->
+        <div class="profile-page" id="profile-page">
+          <div class="header">
+            <label for="name">{profile.username}</label>
+          </div>
+          <div class="profile-box">
             <div class="row-1">
-                <div class="col"><img src="assets/krish.jpg" alt="" width="80px"></div>
-                <div class="col"><b>1</b> <label>Posts</label></div>
-                <div class="col"><b>406</b><label>Followers</label></div>
-                <div class="col"><b>548</b><label>Following</label></div>
+              <div class="col"><img src={profile.profilePic} alt="" width="80px"></div>
+              <div class="col"><b>{profile.posts || '0'}</b> <label>Posts</label></div>
+              <div class="col"><b>{profile.followers || '0'}</b><label>Followers</label></div>
+              <div class="col"><b>{profile.following || '0'}</b><label>Following</label></div>
             </div>
             <div class="row-2">
-                <label for="name">KRUSHNA SAHANE</label>
-                <label for="second insta id">@code_with_krish_</label>
+              <label for="name">{profile.name}</label>
+              <label for="second insta id">@{profile.username}</label>
             </div>
             <div class="row-3">
-                <button>Edit profile</button>
-                <button>Share profile</button>
+              <button>Edit profile</button>
+              <button>Share profile</button>
             </div>
-        </div>
-        <div class="highlights">
-            <div><img src="assets/avcoe.jpg" alt="" width="60px" height="60px">
-                <label for="myself">AVCOE</label>
-            </div>
-            <div><img src="assets/krish.jpg" alt="" width="60px" height="60px">
-                <label for="myself">MySelf</label>
-            </div>
-            <div><img src="assets/travel.jpg" alt="" width="60px" height="60px">
-                <label for="myself">Travel Life</label>
-            </div>
-            <div><img src="assets/farmer.jpg" alt="" width="60px" height="60px">
-                <label for="myself">Shetkari</label>
-            </div>
-            <div><img src="assets/holi.jpg" alt="" width="60px" height="60px">
-                <label for="myself">Holi 2K22</label>
-            </div>
-        </div>
-        <section class="post-reels">
+          </div>
+          <div class="highlights">
+            {#each profile.highlights as highlight}
+              <div>
+                <img src={highlight.picture} alt="" width="60px" height="60px">
+                <label for="myself">{highlight.title}</label>
+              </div>
+            {/each}
+          </div>
+          <section class="post-reels">
             <div class="row-1">
-                <img src="icons/grid.png" alt="" width="25px">
-                <img src="icons/reel.webp" alt="" width="30px">
-                <img src="icons/tag.png" alt="" width="35px">
+              <img src="icons/grid.png" alt="" width="25px">
+              <img src="icons/reel.webp" alt="" width="30px">
+              <img src="icons/tag.png" alt="" width="35px">
             </div>
             <div class="row-2">
-                <img src="assets/krish.jpg" alt="" width="33%">
+              {#each profile.postImages as postImage}
+                <img src={postImage} alt="" width="33%">
+              {/each}
             </div>
-        </section>
-    </div>
-    <!-- End of the profile Page -->
-
-
-     </main>
+          </section>
+        </div>
+        <!-- End of the profile Page -->
+      </main>
 <style>
 
     
