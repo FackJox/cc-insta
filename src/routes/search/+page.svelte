@@ -19,7 +19,7 @@
             <div class="row">
                 <img src="assets/akash.webp" alt="" />
                 <img src="assets/jay.jpg" alt="" />
-                <img src="assets/unknown-profie.png" alt="" />
+                <img src="assets/unknown-profile.png" alt="" />
             </div>
             <div class="row">
                 <img src="assets/tripripost.jpg" alt="" />

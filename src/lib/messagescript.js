@@ -4,7 +4,7 @@ export const conversations = [
     character: {
       name: 'The Magician',
       profile: '@themagicianx',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -21,7 +21,7 @@ export const conversations = [
     character: {
       name: 'The Fool',
       profile: '@foolishways',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -38,7 +38,7 @@ export const conversations = [
     character: {
       name: 'The Empress',
       profile: '@goldenempress',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -55,7 +55,7 @@ export const conversations = [
     character: {
       name: 'The Emperor',
       profile: '@rulemyrealm',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -72,7 +72,7 @@ export const conversations = [
     character: {
       name: 'The Hermit',
       profile: '@solitudeandsage',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -89,7 +89,7 @@ export const conversations = [
     character: {
       name: 'The World',
       profile: '@wanderworlds',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -106,7 +106,7 @@ export const conversations = [
     character: {
       name: 'The High Priestess',
       profile: '@mysticpriestess',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -123,7 +123,7 @@ export const conversations = [
     character: {
       name: 'The Chariot',
       profile: '@adventureonwheels',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {
@@ -140,7 +140,7 @@ export const conversations = [
     character: {
       name: 'The Lovers',
       profile: '@togetherasone',
-      image: '/assets/unknown-profie.png',
+      image: '/assets/unknown-profile.png',
     },
     messages: [
       {

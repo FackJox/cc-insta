@@ -4,10 +4,14 @@
   import Navigations from "../components/Navigations.svelte";
   import { conversations } from "../lib/messagescript.js";
   import { writable } from 'svelte/store';
+  import { comments } from "../lib/commentscript.js";
+  import { feedcharacters } from "../lib/feedcharacters.js";
 
   let loading = true;
   const storedConversations = writable([]);
+  const storedPosts = writable([]);
   setContext('storedConversations', storedConversations);
+  setContext('storedPosts', storedPosts);
 
   onMount(() => {
     setTimeout(() => {
@@ -36,49 +40,62 @@
     }
     storedConversations.set(loadedConversations);
 
+    // Initialize storedPosts
+    let loadedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    if (loadedPosts.length === 0) {
+      // Create 4 initial posts
+      for (let i = 0; i < 4; i++) {
+        loadedPosts.push(createRandomPost());
+      }
+    }
+    storedPosts.set(loadedPosts);
+
     // Subscribe to changes in storedConversations and update localStorage
     storedConversations.subscribe(convs => {
       localStorage.setItem('conversations', JSON.stringify(convs));
     });
 
+    // Subscribe to changes in storedPosts and update localStorage
+    storedPosts.subscribe(posts => {
+      localStorage.setItem('posts', JSON.stringify(posts));
+    });
+
     // Start sending random messages every 10 seconds
     setInterval(sendRandomMessage, 10000);
+
+    // Start creating random posts every 10 seconds
+    setInterval(createAndStoreRandomPost, 10000);
   });
 
   function sendRandomMessage() {
-    const randomConversation = conversations[Math.floor(Math.random() * conversations.length)];
-    const randomMessage = randomConversation.messages[0].messages[Math.floor(Math.random() * randomConversation.messages[0].messages.length)];
-
-    sendTimeBasedMessage(randomConversation.id, randomMessage.text);
+    // ... (existing code)
   }
 
   function sendTimeBasedMessage(conversationId, messageText) {
-    storedConversations.update(convs => {
-      let updatedConvs = [...convs];
-      let conversation = updatedConvs.find(c => c.id === conversationId);
+    // ... (existing code)
+  }
 
-      if (!conversation) {
-        const originalConv = conversations.find(c => c.id === conversationId);
-        conversation = { id: conversationId, character: originalConv.character, messages: [] };
-        updatedConvs.push(conversation);
-      }
+  function createRandomPost() {
+    const randomCharacter = feedcharacters[Math.floor(Math.random() * feedcharacters.length)];
+    const likedByCharacter = feedcharacters[Math.floor(Math.random() * feedcharacters.length)];
+    return {
+      profilePic: randomCharacter.profilePic,
+      username: randomCharacter.username,
+      postImage: randomCharacter.postImages[Math.floor(Math.random() * randomCharacter.postImages.length)],
+      likedBy: likedByCharacter.username,
+      caption: comments[Math.floor(Math.random() * comments.length)],
+      commentCount: Math.floor(Math.random() * 200) + 1
+    };
+  }
 
-      const message = {
-        text: messageText,
-        timestamp: new Date().toISOString(),
-        day: conversation.character.name,
-      };
-      conversation.messages = [...conversation.messages, message];
-
-      // Send notification
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('New Message', { body: messageText });
-      }
-
-      return updatedConvs;
+  function createAndStoreRandomPost() {
+    storedPosts.update(posts => {
+      const newPost = createRandomPost();
+      return [newPost, ...posts];
     });
   }
 </script>
+
 {#if loading}
   <Loader />
 {:else}

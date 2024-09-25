@@ -18,7 +18,7 @@
             <label for="username">aditya_ekhande_</label>
         </div>
         <div class="story">
-            <img src="assets/unknown-profie.png" width="70" height="70" alt="">
+            <img src="assets/unknown-profile.png" width="70" height="70" alt="">
             <label for="username">__sanket.s</label>
         </div>
         <div class="story">
