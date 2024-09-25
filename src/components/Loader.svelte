@@ -1,8 +1,8 @@
 <main>
     <div class="loader" id="loader">
-      <img src="icons/favicon.png" width="70" alt="" />
+      <img src="/icons/favicon.png" width="70" alt="" />
       <div class="branding">
-        from <br /> <img src="icons/from-meta.png" width="150px" alt="" />
+        from <br /> <img src="/icons/from-meta.png" width="150px" alt="" />
       </div>
     </div>
   </main>
