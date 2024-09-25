@@ -1,42 +1,70 @@
-<!-- MessageItem.svelte -->
 <script>
-  export let msg;
-</script>
-
-<div class="row">
-  <div class="col"><img src={msg.image} alt="" width="50"></div>
-  <div class="col">
-    <label>{msg.name}</label><br>
-    <span>{msg.text}</span>
+    import { getContext, onMount } from 'svelte';
+    import { conversations } from '$lib/messagescript.js';
+  
+    export let conversationId;
+  
+    const storedConversations = getContext('storedConversations');
+  
+    $: conversation = $storedConversations.find(c => c.id === conversationId) || { messages: [] };
+    $: lastMessage = conversation.messages.length > 0 
+      ? conversation.messages[conversation.messages.length - 1].text 
+      : 'No messages yet';
+  
+    // Fetch the conversation character info from messagescript.js
+    $: characterInfo = conversations.find(c => c.id === conversationId)?.character || {};
+  
+    onMount(() => {
+      if (!conversation.character) {
+        storedConversations.update(convs => 
+          convs.map(conv => 
+            conv.id === conversationId 
+              ? { ...conv, character: characterInfo }
+              : conv
+          )
+        );
+      }
+    });
+  </script>
+  
+  <div class="message-item">
+    <div class="avatar">
+      <img src={characterInfo.image} alt={characterInfo.name} width="50" height="50" />
+    </div>
+    <div class="info">
+      <label>{characterInfo.name}</label><br />
+      <span>{lastMessage}</span>
+    </div>
   </div>
-  <div class="col">
-    <img src="icons/icons8-camera-50.png" alt="" width="25px">
-  </div>
-</div>
-
-<!-- MessageItem.svelte -->
-<style>
-  .row {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-top: 20px;
-    position: relative;
-  }
-
-  .row .col:nth-child(2) {
-    color: rgb(47, 47, 48);
-    font-size: 14px;
-    padding: 4px 0;
-  }
-
-  .row .col:nth-child(3) {
-    position: absolute;
-    right: 5px;
-    top: 15px;
-  }
-
-  .row .col:nth-child(1) img {
-    border-radius: 50%;
-  }
-</style>
+  
+  <style>
+    .message-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+  
+    .avatar {
+      margin-right: 10px;
+    }
+  
+    .avatar img {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  
+    .info {
+      flex-grow: 1;
+    }
+  
+    .info label {
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+  
+    .info span {
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>

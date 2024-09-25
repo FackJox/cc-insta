@@ -1,9 +1,9 @@
 <script>
+    import { onMount } from "svelte";
     import { goto } from "$app/navigation";
     import Feed from "../components/homepage/Feed.svelte";
     import Stories from "../components/homepage/Stories.svelte";
 
-    
     // function homePage() {
     //         currentPage.style.display = "none";
     //         currentPage = document.getElementById("home-page");
@@ -20,22 +20,24 @@
     //
     //     }
 
-    if ('Notification' in window) {
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      // Set up push notifications
-    }
-  });
-}
-
     function redirectTo(path) {
-        goto(path);
-    }
+            goto(path);
+        }
+
+    onMount(() => {
+        if ("Notification" in window) {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    // Set up push notifications
+                }
+            });
+        }
+
+     
+    });
 </script>
 
 <main>
-
-    
     <!-- instagram home home-page -->
     <div class="home-page" id="home-page">
         <header>
@@ -44,23 +46,19 @@
             </div>
             <div class="messages-ico">
                 <img src="icons/heart.png" width="25" alt="" /> &nbsp;
-                
+
                 <img
-                src="icons/messenger.png"
-                width="25"
-                on:click={() => redirectTo('/messages')}
-                alt="Messages"
+                    src="icons/messenger.png"
+                    width="25"
+                    on:click={() => redirectTo("/conversations")}
+                    alt="Messages"
                 />
             </div>
         </header>
         <Stories />
         <Feed />
-        
-    
-    </main>
-
-
-
+    </div>
+</main>
 
 <!-- end of the home home-page -->
 
@@ -82,10 +80,7 @@
         z-index: 1;
     }
 
-  
-
     img {
         cursor: pointer;
     }
-
 </style>
