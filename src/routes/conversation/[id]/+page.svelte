@@ -23,6 +23,30 @@ import { onMount, getContext } from 'svelte';
   
     // Get the conversation ID from the URL parameter
     $: conversationId = $page.params.id;
+
+
+
+
+    function formatLastMessaged(timestamp) {
+        if (!timestamp) return '';
+        
+        const now = new Date();
+        const diff = now - timestamp;
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+
+        if (days === 0) {
+            if (minutes < 60) return `${minutes}m ago`;
+            if (hours < 24) return `${hours}h ago`;
+        } else if (days === 1) {
+            return 'yesterday';
+        } else if (days === 2) {
+            return new Date(timestamp).toLocaleString('en-US', { weekday: 'short' }).toLowerCase();
+        } else {
+            return new Date(timestamp).toLocaleString('en-US', { weekday: 'short' }).toLowerCase();
+        }
+    }
   
     onMount(() => {
       // Load conversations from storedConversations context
@@ -104,18 +128,19 @@ import { onMount, getContext } from 'svelte';
             </div>
         </div>
 
-        <!-- Messages -->
-        <div class="messages-container">
-            <div class="messages">
-                {#each $conversationStore.messages as msg}
-                    <div class="message {msg.day === 'You' ? 'sent' : 'received'}">
-                        <div class="message-content">
-                            <span>{msg.text}</span>
-                        </div>
-                    </div>
-                {/each}
+<!-- Messages -->
+<div class="messages-container">
+    <div class="messages">
+        {#each $conversationStore.messages as msg}
+            <div class="message {msg.day === 'You' ? 'sent' : 'received'}">
+                <div class="message-content">
+                    <span class="message-text">{msg.text}</span>
+                    <span class="timestamp">{formatLastMessaged(new Date(msg.timestamp))}</span>
+                </div>
             </div>
-        </div>
+        {/each}
+    </div>
+</div>
 
    <!-- Input Area -->
    <div class="input-container">
@@ -185,12 +210,8 @@ import { onMount, getContext } from 'svelte';
 }
 
 
-.messages {
-    padding: 16px;
-}
-
-    .message {
-        margin-bottom: 8px;
+.message {
+        margin-bottom: 24px; /* Increased margin between messages */
         display: flex;
     }
 
@@ -200,10 +221,18 @@ import { onMount, getContext } from 'svelte';
 
     .message-content {
         max-width: 70%;
+        min-width: 60px; /* Add minimum width */
         padding: 8px 12px;
         border-radius: 22px;
         font-size: 14px;
         line-height: 1.4;
+        position: relative;
+    }
+
+    .message-text {
+        display: block;
+        margin-bottom: 15px; /* Add space for the timestamp */
+        word-wrap: break-word; /* Ensure long words don't overflow */
     }
 
     .message.sent .message-content {
@@ -215,6 +244,20 @@ import { onMount, getContext } from 'svelte';
         background-color: #3897f0;
         color: #fff;
     }
+
+    .timestamp {
+        font-size: 10px;
+        color: #8e8e8e;
+        position: absolute;
+        bottom: 4px;
+        right: 12px;
+        white-space: nowrap;
+    }
+
+    .message.received .timestamp {
+        color: rgba(255, 255, 255, 0.7); /* Adjust color for better visibility on blue background */
+    }
+
 
     .input-container {
         position: sticky;
