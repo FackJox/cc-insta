@@ -1,4 +1,4 @@
-export const feedcharacters = [
+export const feedCharacters = [
   {
       profilePic: "/assets/akash.webp",
       username: "_couture",

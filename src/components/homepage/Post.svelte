@@ -1,25 +1,37 @@
 <script>
-    export let profilePic;
-    export let username;
-    export let postImage;
-    export let likedBy;
-    export let caption;
-    export let commentCount;
+import { goto } from '$app/navigation';
+
+export let profilePic;
+export let username;
+export let postImage;
+export let likedBy;
+export let caption;
+export let commentCount;
+
+function navigateToProfile(username) {
+    goto(`/profile/${username}`);
+}
   </script>
   
   <div class="post">
     <div class="row-1">
-      <div class="col-1">
-        <div class="profile-pic">
-          <img src={profilePic} alt="" width="30px" />
+        <div class="col-1">
+            <div class="profile-pic">
+                <img src={profilePic} alt="" width="30px" />
+            </div>
+            <div class="username">
+                <b>
+                    <a href={`/profile/${username}`} on:click|preventDefault={() => navigateToProfile(username)}>
+                        {username}
+                    </a>
+                </b>
+            </div>
         </div>
-        <div class="username"><b>{username}</b></div>
-      </div>
-      <div class="col-2">
-        <div class="more">
-          <img src="icons/dots.png" alt="" width="20px" />
+        <div class="col-2">
+            <div class="more">
+                <img src="icons/dots.png" alt="" width="20px" />
+            </div>
         </div>
-      </div>
     </div>
     <div class="row-2">
       <img src={postImage} alt="" width="100%" />
@@ -84,4 +96,13 @@
   .row-4 .comments {
     color: #8e8e8e;
   }
+
+  .username a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .username a:hover {
+        text-decoration: underline;
+    }
 </style>  

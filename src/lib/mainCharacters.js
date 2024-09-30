@@ -1,4 +1,4 @@
-export const feedcharacters = [
+export const mainCharacters = [
     {
         profilePic: "/assets/akash.webp",
         username: "ceci.love",
@@ -7,9 +7,9 @@ export const feedcharacters = [
           "/assets/jpost.webp",
           "/assets/tripripost.jpg",
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "3412",
+        followers: "12",
+        following: "142",
         name: "Ceci Summer",
         initialPosts: "",
         highlights: [
