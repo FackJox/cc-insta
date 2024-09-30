@@ -18,7 +18,7 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.webp",
+        profilePic: "/assets/abp.jpg",
         username: "themagicianx",
         postImages: [
           "/assets/akash.webp",
@@ -72,7 +72,7 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.webp",
+        profilePic: "/assets/abp.jpg",
         username: "rulemyrealm",
         postImages: [
           "/assets/akash.webp",
@@ -90,7 +90,7 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.webp",
+        profilePic: "/assets/abp.jpg",
         username: "wanderworlds",
         postImages: [
           "/assets/akash.webp",
@@ -108,7 +108,7 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.webp",
+        profilePic: "/assets/abp.jpg",
         username: "mysticpriestess",
         postImages: [
           "/assets/akash.webp",
@@ -126,7 +126,7 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.webp",
+        profilePic: "/assets/abp.jpg",
         username: "adventureonwheels",
         postImages: [
           "/assets/akash.webp",
@@ -144,7 +144,7 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.webp",
+        profilePic: "/assets/abp.jpg",
         username: "togetherasone",
         postImages: [
           "/assets/akash.webp",

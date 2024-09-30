@@ -1,5 +1,5 @@
 <script>
-    import { onMount, getContext } from 'svelte';
+import { onMount, getContext } from 'svelte';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
     import { writable } from 'svelte/store';
@@ -9,6 +9,17 @@
     let conversationStore = writable(null);
     let newMessage = '';
     const storedConversations = getContext('storedConversations');
+
+ // Modify the navigateToProfile function
+ function navigateToProfile(character) {
+        if (character && character.username) {
+            goto(`/profile/${character.username}`);
+        } else {
+            console.error('Username not found for character:', character);
+            // Optionally, show an error message to the user
+        }
+    }
+
   
     // Get the conversation ID from the URL parameter
     $: conversationId = $page.params.id;
@@ -86,7 +97,10 @@
             </button>
             <div class="user-info">
                 <img src={$conversationStore.character.image} alt={$conversationStore.character.name} class="profile-pic">
-                <span class="username">{$conversationStore.character.name}</span>
+                <!-- Pass the entire character object to the navigateToProfile function -->
+                <span class="username" on:click={() => navigateToProfile($conversationStore.character)}>
+                    {$conversationStore.character.name}
+                </span>
             </div>
         </div>
 

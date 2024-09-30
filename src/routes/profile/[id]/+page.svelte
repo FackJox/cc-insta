@@ -1,10 +1,10 @@
 <script>
   import { page } from '$app/stores';
   import { mainCharacters } from '$lib/mainCharacters.js';
-  import { feedcharacters } from '$lib/feedCharacters.js';
+  import { feedCharacters } from '$lib/feedCharacters.js';
 
   // Combine both arrays
-  const allCharacters = [...mainCharacters, ...feedcharacters];
+  const allCharacters = [...mainCharacters, ...feedCharacters];
 
   $: profile = allCharacters.find(char => char.username === $page.params.id) || allCharacters[0];
 </script>

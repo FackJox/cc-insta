@@ -72,7 +72,7 @@ export const feedCharacters = [
       ]
     },
     {
-      profilePic: "/assets/abp.webp",
+      profilePic: "/assets/abp.jpg",
       username: "wearethepeople",
       postImages: [
         "/assets/akash.webp",

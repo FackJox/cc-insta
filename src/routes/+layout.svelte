@@ -5,13 +5,22 @@
   import { conversations } from "../lib/messageScript.js";
   import { writable } from 'svelte/store';
   import { comments } from "../lib/commentScript.js";
-  import { feedcharacters } from "../lib/feedCharacters.js";
+  import { feedCharacters } from "../lib/feedCharacters.js";
 
   let loading = true;
   const storedConversations = writable([]);
   const storedPosts = writable([]);
   setContext('storedConversations', storedConversations);
   setContext('storedPosts', storedPosts);
+
+  let selectedDay = 'weds'; // Default selected day
+  let messageInterval;
+
+  function handleDayChange(event) {
+    selectedDay = event.target.value;
+    clearInterval(messageInterval);
+    startSendingMessages();
+  }
 
   onMount(() => {
     setTimeout(() => {
@@ -60,41 +69,63 @@
       localStorage.setItem('posts', JSON.stringify(posts));
     });
 
-    // Start sending random messages every 10 seconds
-    setInterval(sendRandomMessage, 10000);
+    // Start sending messages for the selected day
+    startSendingMessages();
 
     // Start creating random posts every 10 seconds
     setInterval(createAndStoreRandomPost, 10000);
   });
 
-  function sendRandomMessage() {
-    const randomConversation = conversations[Math.floor(Math.random() * conversations.length)];
-    const randomMessage = randomConversation.messages[0].messages[Math.floor(Math.random() * randomConversation.messages[0].messages.length)];
-    sendTimeBasedMessage(randomConversation.id, randomMessage.text);
+  function startSendingMessages() {
+    messageInterval = setInterval(() => {
+      const dayMessages = getDayMessages(selectedDay);
+      if (dayMessages.length > 0) {
+        const randomConversation = dayMessages[Math.floor(Math.random() * dayMessages.length)];
+        sendNextMessage(randomConversation.id, randomConversation.messages);
+      }
+    }, getRandomDelay());
   }
 
-  function sendTimeBasedMessage(conversationId, messageText) {
-  storedConversations.update(convs => {
-    let updatedConvs = [...convs];
-    let conversation = updatedConvs.find(c => c.id === conversationId);
-    if (!conversation) {
-      const originalConv = conversations.find(c => c.id === conversationId);
-      conversation = { id: conversationId, character: originalConv.character, messages: [] };
-      updatedConvs.push(conversation);
-    }
-    const message = {
-      text: messageText,
-      timestamp: new Date().toISOString(),
-      day: conversation.character.name,
-    };
-    conversation.messages = [...conversation.messages, message];
-    return updatedConvs; // Don't forget to return the updated conversations
-  });
-}
+  function getDayMessages(day) {
+    return conversations.filter(conv => 
+      conv.messages.some(msg => msg.day === day)
+    ).map(conv => ({
+      id: conv.id,
+      messages: conv.messages.find(msg => msg.day === day).messages
+    }));
+  }
+
+  function sendNextMessage(conversationId, messages) {
+    storedConversations.update(convs => {
+      let updatedConvs = [...convs];
+      let conversation = updatedConvs.find(c => c.id === conversationId);
+      if (!conversation) {
+        const originalConv = conversations.find(c => c.id === conversationId);
+        conversation = { id: conversationId, character: originalConv.character, messages: [] };
+        updatedConvs.push(conversation);
+      }
+      
+      const nextMessageIndex = conversation.messages.length;
+      if (nextMessageIndex < messages.length) {
+        const message = {
+          text: messages[nextMessageIndex].text,
+          timestamp: new Date().toISOString(),
+          day: selectedDay,
+        };
+        conversation.messages = [...conversation.messages, message];
+      }
+      
+      return updatedConvs;
+    });
+  }
+
+  function getRandomDelay() {
+    return (Math.floor(Math.random() * 5) + 1) * 1000; // 1-5 seconds
+  }
 
   function createRandomPost() {
-    const randomCharacter = feedcharacters[Math.floor(Math.random() * feedcharacters.length)];
-    const likedByCharacter = feedcharacters[Math.floor(Math.random() * feedcharacters.length)];
+    const randomCharacter = feedCharacters[Math.floor(Math.random() * feedCharacters.length)];
+    const likedByCharacter = feedCharacters[Math.floor(Math.random() * feedCharacters.length)];
     return {
       profilePic: randomCharacter.profilePic,
       username: randomCharacter.username,
@@ -112,6 +143,15 @@
     });
   }
 </script>
+
+<div class="day-selector">
+  <select bind:value={selectedDay} on:change={handleDayChange}>
+    <option value="weds">Wednesday</option>
+    <option value="thurs">Thursday</option>
+    <option value="fri">Friday</option>
+    <option value="sat">Saturday</option>
+  </select>
+</div>
 
 {#if loading}
   <Loader />
