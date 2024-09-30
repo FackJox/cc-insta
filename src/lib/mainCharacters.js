@@ -36,7 +36,7 @@ export const feedcharacters = [
         ]
       },
       {
-        profilePic: "/assets/jay.webp",
+        profilePic: "/assets/jay.jpg",
         username: "foolishways",
         postImages: [
           "/assets/akash.webp",
@@ -54,7 +54,7 @@ export const feedcharacters = [
         ]
       },
       {
-        profilePic: "/assets/jay.webp",
+        profilePic: "/assets/jay.jp",
         username: "goldenempress",
         postImages: [
           "/assets/akash.webp",

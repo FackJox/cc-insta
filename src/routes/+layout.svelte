@@ -68,12 +68,29 @@
   });
 
   function sendRandomMessage() {
-    // ... (existing code)
+    const randomConversation = conversations[Math.floor(Math.random() * conversations.length)];
+    const randomMessage = randomConversation.messages[0].messages[Math.floor(Math.random() * randomConversation.messages[0].messages.length)];
+    sendTimeBasedMessage(randomConversation.id, randomMessage.text);
   }
 
   function sendTimeBasedMessage(conversationId, messageText) {
-    // ... (existing code)
-  }
+  storedConversations.update(convs => {
+    let updatedConvs = [...convs];
+    let conversation = updatedConvs.find(c => c.id === conversationId);
+    if (!conversation) {
+      const originalConv = conversations.find(c => c.id === conversationId);
+      conversation = { id: conversationId, character: originalConv.character, messages: [] };
+      updatedConvs.push(conversation);
+    }
+    const message = {
+      text: messageText,
+      timestamp: new Date().toISOString(),
+      day: conversation.character.name,
+    };
+    conversation.messages = [...conversation.messages, message];
+    return updatedConvs; // Don't forget to return the updated conversations
+  });
+}
 
   function createRandomPost() {
     const randomCharacter = feedcharacters[Math.floor(Math.random() * feedcharacters.length)];
