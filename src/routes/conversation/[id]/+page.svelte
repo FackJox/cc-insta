@@ -1,32 +1,25 @@
 <script>
-import { onMount, getContext } from 'svelte';
+    import { onMount, getContext } from 'svelte';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
     import { writable } from 'svelte/store';
     import { conversations } from '$lib/messageScript.js';
-  
+    
     let conversationId;
     let conversationStore = writable(null);
     let newMessage = '';
     const storedConversations = getContext('storedConversations');
-
- // Modify the navigateToProfile function
- function navigateToProfile(character) {
+    
+    function navigateToProfile(character) {
         if (character && character.username) {
             goto(`/profile/${character.username}`);
         } else {
             console.error('Username not found for character:', character);
-            // Optionally, show an error message to the user
         }
     }
-
-  
-    // Get the conversation ID from the URL parameter
+    
     $: conversationId = $page.params.id;
-
-
-
-
+    
     function formatLastMessaged(timestamp) {
         if (!timestamp) return '';
         
@@ -35,7 +28,7 @@ import { onMount, getContext } from 'svelte';
         const minutes = Math.floor(diff / 60000);
         const hours = Math.floor(diff / 3600000);
         const days = Math.floor(diff / 86400000);
-
+    
         if (days === 0) {
             if (minutes < 60) return `${minutes}m ago`;
             if (hours < 24) return `${hours}h ago`;
@@ -47,51 +40,66 @@ import { onMount, getContext } from 'svelte';
             return new Date(timestamp).toLocaleString('en-US', { weekday: 'short' }).toLowerCase();
         }
     }
-  
+    
     onMount(() => {
-      // Load conversations from storedConversations context
-      const unsubscribe = storedConversations.subscribe(convs => {
+    const unsubscribe = storedConversations.subscribe(convs => {
         let foundConversation = convs.find(c => c.id === conversationId);
-  
+        
         if (!foundConversation) {
-          // If conversation doesn't exist, create it from messageScript.js
-          const originalConv = conversations.find(c => c.id === conversationId);
-          if (originalConv) {
-            foundConversation = { ...originalConv, messages: [] };
-            storedConversations.update(convs => [...convs, foundConversation]);
-          } else {
-            // Redirect back if conversation is not found
-            goto('/conversations');
-            return;
-          }
+            const originalConv = conversations.find(c => c.id === conversationId);
+            if (originalConv) {
+                foundConversation = { ...originalConv, messages: [] };
+                storedConversations.update(currentConvs => {
+                    if (!currentConvs.find(c => c.id === conversationId)) {
+                        return [...currentConvs, foundConversation];
+                    }
+                    return currentConvs;
+                });
+            } else {
+                goto('/conversations');
+                return;
+            }
+        } else {
+            // Only update if the conversation has changed
+            conversationStore.update(current => {
+                if (JSON.stringify(current) !== JSON.stringify(foundConversation)) {
+                    return foundConversation;
+                }
+                return current;
+            });
         }
-  
-        conversationStore.set(foundConversation);
-      });
-
-      return unsubscribe;
     });
-  
 
-    function sendMessage() {
-        if (newMessage.trim()) {
-            const message = {
-                day: 'You',
-                text: newMessage,
-                timestamp: new Date().toISOString(),
-            };
-            
-            conversationStore.update(conv => {
-                conv.messages = [...conv.messages, message];
+    return unsubscribe;
+});
+    
+function sendMessage() {
+    if (newMessage.trim()) {
+        const message = {
+            day: 'You',
+            text: newMessage,
+            timestamp: new Date().toISOString(),
+            read: true,
+        };
+        
+        storedConversations.update(convs => {
+            const updatedConvs = convs.map(conv => {
+                if (conv.id === conversationId) {
+                    return {
+                        ...conv,
+                        messages: [...conv.messages, message]
+                    };
+                }
                 return conv;
             });
-            
-            newMessage = '';
-
-            updateConversations();
-        }
+            return updatedConvs;
+        });
+        
+        newMessage = '';
     }
+}
 
+    
     function updateConversations() {
         storedConversations.update(convs => {
             const index = convs.findIndex(c => c.id === conversationId);
@@ -101,12 +109,12 @@ import { onMount, getContext } from 'svelte';
             return convs;
         });
     }
-
-    // Go back to the conversations list
+    
     function goBack() {
         goto('/conversations');
     }
-</script>
+    </script>
+    
 
 <svelte:head>
     <title>{$conversationStore ? $conversationStore.character.name : 'Conversation'}</title>
@@ -121,39 +129,38 @@ import { onMount, getContext } from 'svelte';
             </button>
             <div class="user-info">
                 <img src={$conversationStore.character.image} alt={$conversationStore.character.name} class="profile-pic">
-                <!-- Pass the entire character object to the navigateToProfile function -->
                 <span class="username" on:click={() => navigateToProfile($conversationStore.character)}>
                     {$conversationStore.character.name}
                 </span>
             </div>
         </div>
 
-<!-- Messages -->
-<div class="messages-container">
-    <div class="messages">
-        {#each $conversationStore.messages as msg}
-            <div class="message {msg.day === 'You' ? 'sent' : 'received'}">
-                <div class="message-content">
-                    <span class="message-text">{msg.text}</span>
-                    <span class="timestamp">{formatLastMessaged(new Date(msg.timestamp))}</span>
-                </div>
+        <!-- Messages -->
+        <div class="messages-container">
+            <div class="messages">
+                {#each $conversationStore.messages as msg}
+                    <div class="message {msg.day === 'You' ? 'sent' : 'received'}">
+                        <div class="message-content">
+                            <span class="message-text">{msg.text}</span>
+                            <span class="timestamp">{formatLastMessaged(new Date(msg.timestamp))}</span>
+                        </div>
+                    </div>
+                {/each}
             </div>
-        {/each}
-    </div>
-</div>
+        </div>
 
-   <!-- Input Area -->
-   <div class="input-container">
-    <div class="input-area">
-        <input
-            type="text"
-            bind:value={newMessage}
-            placeholder="Message..."
-            on:keyup={(e) => e.key === 'Enter' && sendMessage()}
-        />
-        <button on:click={sendMessage} class="send-button" disabled={!newMessage.trim()}>Send</button>
-    </div>
-</div>
+        <!-- Input Area -->
+        <div class="input-container">
+            <div class="input-area">
+                <input
+                    type="text"
+                    bind:value={newMessage}
+                    placeholder="Message..."
+                    on:keyup={(e) => e.key === 'Enter' && sendMessage()}
+                />
+                <button on:click={sendMessage} class="send-button" disabled={!newMessage.trim()}>Send</button>
+            </div>
+        </div>
     </div>
 {:else}
     <p>Loading...</p>
@@ -211,7 +218,7 @@ import { onMount, getContext } from 'svelte';
 
 
 .message {
-        margin-bottom: 24px; /* Increased margin between messages */
+        margin-bottom: 12px; /* Increased margin between messages */
         display: flex;
     }
 
