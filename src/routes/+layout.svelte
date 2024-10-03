@@ -28,7 +28,7 @@
     selectedDay = event.target.value;
     clearInterval(messageInterval);
     startSendingMessages();
-  }
+}
 
   let messageTimeout;
 
@@ -91,14 +91,16 @@ setInterval(createAndStoreRandomPost, 10000);
 });
 
 function startSendingMessages() {
-messageInterval = setInterval(() => {
-const dayMessages = getDayMessages(selectedDay);
-if (dayMessages.length > 0) {
-  const randomConversation = dayMessages[Math.floor(Math.random() * dayMessages.length)];
-  sendNextMessage(randomConversation.id, randomConversation.messages);
-}
-}, getRandomDelay());
-}
+    clearInterval(messageInterval);
+    messageInterval = setInterval(() => {
+      const dayMessages = getDayMessages(selectedDay);
+      if (dayMessages.length > 0) {
+        dayMessages.forEach(conversation => {
+          sendNextMessage(conversation.id, conversation.messages);
+        });
+      }
+    }, getRandomDelay());
+  }
 
 function getDayMessages(day) {
 return conversations.filter(conv => 
@@ -110,33 +112,45 @@ messages: conv.messages.find(msg => msg.day === day).messages
 }
 
 function sendNextMessage(conversationId, messages) {
-storedConversations.update(convs => {
-let updatedConvs = [...convs];
-let conversation = updatedConvs.find(c => c.id === conversationId);
-if (!conversation) {
-  const originalConv = conversations.find(c => c.id === conversationId);
-  conversation = { id: conversationId, character: originalConv.character, messages: [] };
-  updatedConvs.push(conversation);
+    storedConversations.update(convs => {
+        let updatedConvs = [...convs];
+        let conversation = updatedConvs.find(c => c.id === conversationId);
+        if (!conversation) {
+            const originalConv = conversations.find(c => c.id === conversationId);
+            conversation = { id: conversationId, character: originalConv.character, messages: [] };
+            updatedConvs.push(conversation);
+        }
+
+        // Filter messages for the selected day
+        const messagesForSelectedDay = conversation.messages.filter(msg => msg.day === selectedDay);
+        const nextMessageIndex = messagesForSelectedDay.length;
+        const previousMessage = messagesForSelectedDay[nextMessageIndex - 1];
+
+        // Check if there are more messages to send for the selected day
+        if (nextMessageIndex < messages.length) {
+            // Send the next message only if it's the first message or the previous message has been read
+            if (!previousMessage || previousMessage.read) {
+                const message = {
+                    text: messages[nextMessageIndex].text,
+                    timestamp: new Date().toISOString(),
+                    day: selectedDay,
+                    read: false, // Mark as unread initially
+                };
+                conversation.messages = [...conversation.messages, message];
+            }
+        }
+
+        return updatedConvs;
+    });
 }
 
-const nextMessageIndex = conversation.messages.length;
-if (nextMessageIndex < messages.length) {
-  const message = {
-    text: messages[nextMessageIndex].text,
-    timestamp: new Date().toISOString(),
-    day: selectedDay,
-    read: conversationId === currentConversationId, // Mark as read if the conversation is currently open
-  };
-  conversation.messages = [...conversation.messages, message];
-}
 
-return updatedConvs;
-});
-}
+
 
 function getRandomDelay() {
 return (Math.floor(Math.random() * 5) + 1) * 1000; // 1-5 seconds
 }
+
 
 function createRandomPost() {
 const randomCharacter = feedCharacters[Math.floor(Math.random() * feedCharacters.length)];

@@ -41,9 +41,9 @@
       </div>
       <section class="post-reels">
           <div class="row-1">
-              <img src="icons/grid.png" alt="" width="25px">
-              <img src="icons/reel.webp" alt="" width="30px">
-              <img src="icons/tag.png" alt="" width="35px">
+              <img src="/icons/grid.png" alt="" width="25px">
+              <img src="/icons/reel.webp" alt="" width="30px">
+              <img src="/icons/tag.png" alt="" width="35px">
           </div>
           <div class="row-2">
               {#each profile.postImages as postImage}

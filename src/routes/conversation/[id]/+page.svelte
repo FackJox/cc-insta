@@ -2,11 +2,10 @@
     import { onMount, getContext } from 'svelte';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
-    import { writable } from 'svelte/store';
     import { conversations } from '$lib/messageScript.js';
     
     let conversationId;
-    let conversationStore = writable(null);
+    let conversation = null;
     let newMessage = '';
     const storedConversations = getContext('storedConversations');
     
@@ -20,107 +19,76 @@
     
     $: conversationId = $page.params.id;
     
-    function formatLastMessaged(timestamp) {
-        if (!timestamp) return '';
-        
-        const now = new Date();
-        const diff = now - timestamp;
-        const minutes = Math.floor(diff / 60000);
-        const hours = Math.floor(diff / 3600000);
-        const days = Math.floor(diff / 86400000);
+    // Make `conversation` reactive to changes in `storedConversations`
+    $: conversation = $storedConversations.find(c => c.id === conversationId);
     
-        if (days === 0) {
-            if (minutes < 60) return `${minutes}m ago`;
-            if (hours < 24) return `${hours}h ago`;
-        } else if (days === 1) {
-            return 'yesterday';
-        } else if (days === 2) {
-            return new Date(timestamp).toLocaleString('en-US', { weekday: 'short' }).toLowerCase();
-        } else {
-            return new Date(timestamp).toLocaleString('en-US', { weekday: 'short' }).toLowerCase();
-        }
-    }
-    
-    onMount(() => {
-    const unsubscribe = storedConversations.subscribe(convs => {
-        let foundConversation = convs.find(c => c.id === conversationId);
-        
-        if (!foundConversation) {
-            const originalConv = conversations.find(c => c.id === conversationId);
-            if (originalConv) {
-                foundConversation = { ...originalConv, messages: [] };
-                storedConversations.update(currentConvs => {
-                    if (!currentConvs.find(c => c.id === conversationId)) {
-                        return [...currentConvs, foundConversation];
+    // Mark messages as read when viewing the conversation
+    $: if (conversation) {
+        // Check if there are any unread messages
+        const hasUnreadMessages = conversation.messages.some(msg => !msg.read);
+        if (hasUnreadMessages) {
+            // Mark all messages as read
+            storedConversations.update(convs => {
+                return convs.map(conv => {
+                    if (conv.id === conversationId) {
+                        return {
+                            ...conv,
+                            messages: conv.messages.map(msg => ({ ...msg, read: true }))
+                        };
                     }
-                    return currentConvs;
+                    return conv;
                 });
-            } else {
-                goto('/conversations');
-                return;
-            }
-        } else {
-            // Only update if the conversation has changed
-            conversationStore.update(current => {
-                if (JSON.stringify(current) !== JSON.stringify(foundConversation)) {
-                    return foundConversation;
-                }
-                return current;
             });
         }
-    });
-
-    return unsubscribe;
-});
-    
-function sendMessage() {
-    if (newMessage.trim()) {
-        const message = {
-            day: 'You',
-            text: newMessage,
-            timestamp: new Date().toISOString(),
-            read: true,
-        };
-        
-        storedConversations.update(convs => {
-            const updatedConvs = convs.map(conv => {
-                if (conv.id === conversationId) {
-                    return {
-                        ...conv,
-                        messages: [...conv.messages, message]
-                    };
-                }
-                return conv;
-            });
-            return updatedConvs;
-        });
-        
-        newMessage = '';
     }
-}
-
     
-    function updateConversations() {
-        storedConversations.update(convs => {
-            const index = convs.findIndex(c => c.id === conversationId);
-            if (index !== -1) {
-                convs[index] = $conversationStore;
-            }
-            return convs;
-        });
+    function sendMessage() {
+        if (newMessage.trim()) {
+            const message = {
+                day: 'You',
+                text: newMessage,
+                timestamp: new Date().toISOString(),
+                read: true,
+            };
+            
+            storedConversations.update(convs => {
+                return convs.map(conv => {
+                    if (conv.id === conversationId) {
+                        return {
+                            ...conv,
+                            messages: [...conv.messages, message]
+                        };
+                    }
+                    return conv;
+                });
+            });
+            
+            newMessage = '';
+        }
     }
     
     function goBack() {
         goto('/conversations');
     }
-    </script>
     
+    // Function to format the timestamp
+    function formatLastMessaged(date) {
+        const now = new Date();
+        const diffInMinutes = Math.floor((now - date) / (1000 * 60));
 
-<svelte:head>
-    <title>{$conversationStore ? $conversationStore.character.name : 'Conversation'}</title>
-</svelte:head>
+        if (diffInMinutes < 1) return 'Just now';
+        if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+        if (diffInMinutes < 1440) {
+            const hours = Math.floor(diffInMinutes / 60);
+            return `${hours}h ago`;
+        }
+        return date.toLocaleDateString();
+    }
+</script>
 
-{#if $conversationStore}
+
+
+{#if conversation}
     <div class="conversation">
         <!-- Header -->
         <div class="header">
@@ -128,9 +96,9 @@ function sendMessage() {
                 <img src="/icons/back.png" alt="Back" width="25">
             </button>
             <div class="user-info">
-                <img src={$conversationStore.character.image} alt={$conversationStore.character.name} class="profile-pic">
-                <span class="username" on:click={() => navigateToProfile($conversationStore.character)}>
-                    {$conversationStore.character.name}
+                <img src={conversation.character.image} alt={conversation.character.name} class="profile-pic">
+                <span class="username" on:click={() => navigateToProfile(conversation.character)}>
+                    {conversation.character.name}
                 </span>
             </div>
         </div>
@@ -138,7 +106,7 @@ function sendMessage() {
         <!-- Messages -->
         <div class="messages-container">
             <div class="messages">
-                {#each $conversationStore.messages as msg}
+                {#each conversation.messages as msg}
                     <div class="message {msg.day === 'You' ? 'sent' : 'received'}">
                         <div class="message-content">
                             <span class="message-text">{msg.text}</span>
@@ -165,7 +133,6 @@ function sendMessage() {
 {:else}
     <p>Loading...</p>
 {/if}
-
 <style>
     .conversation {
         display: flex;
