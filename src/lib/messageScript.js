@@ -10,7 +10,7 @@ export const conversations = [
       {
         day: 'weds',
         messages: [
-          { text: 'Are you there Ceci?', reply: 'none' },
+          { text: 'Are you there Ceci?', reply: ['testing312', 'testing123'] },
           { text: 'Behold, Ceci! Your mystical journey unfolds before you.', reply: 'none' },
           { text: 'As you traverse towards Bologna, remember that each step is a spell cast upon your path. The universe conspires to create magic in your favor.', reply: 'none' },
           { text: 'Can you feel the anticipation building, like energy crackling before a grand illusion? ', reply: 'none' },

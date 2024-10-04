@@ -45,7 +45,7 @@
     function sendMessage() {
         if (newMessage.trim()) {
             const message = {
-                day: 'You',
+                id: 'You',
                 text: newMessage,
                 timestamp: new Date().toISOString(),
                 read: true,
