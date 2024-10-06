@@ -3,88 +3,115 @@
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
     import { conversations } from '$lib/messageScript.js';
-    
+    import { incorrect, correct } from '$lib/feedbackMessages.js';
+  
     let conversationId;
     let conversation = null;
     let newMessage = '';
+  
     const storedConversations = getContext('storedConversations');
-    
-    function navigateToProfile(character) {
-        if (character && character.username) {
-            goto(`/profile/${character.username}`);
-        } else {
-            console.error('Username not found for character:', character);
-        }
+    const selectedDay = getContext('selectedDay');
+  
+    // Access the value of the stores using $ prefix
+    $: {
+      // Get the conversation ID from the URL
+      conversationId = $page.params.id;
+      // Find the conversation in storedConversations
+      conversation = $storedConversations.find(c => c.id === conversationId);
     }
-    
-    $: conversationId = $page.params.id;
-    
-    // Make `conversation` reactive to changes in `storedConversations`
-    $: conversation = $storedConversations.find(c => c.id === conversationId);
-    
+  
     // Mark messages as read when viewing the conversation
     $: if (conversation) {
-        // Check if there are any unread messages
-        const hasUnreadMessages = conversation.messages.some(msg => !msg.read);
-        if (hasUnreadMessages) {
-            // Mark all messages as read
-            storedConversations.update(convs => {
-                return convs.map(conv => {
-                    if (conv.id === conversationId) {
-                        return {
-                            ...conv,
-                            messages: conv.messages.map(msg => ({ ...msg, read: true }))
-                        };
-                    }
-                    return conv;
-                });
-            });
-        }
+      const hasUnreadMessages = conversation.messages.some(msg => !msg.read);
+      if (hasUnreadMessages) {
+        storedConversations.update(convs => {
+          return convs.map(conv => {
+            if (conv.id === conversationId) {
+              return {
+                ...conv,
+                messages: conv.messages.map(msg => ({ ...msg, read: true }))
+              };
+            }
+            return conv;
+          });
+        });
+      }
     }
-    
+  
     function sendMessage() {
-        if (newMessage.trim()) {
-            const message = {
-                id: 'You',
-                text: newMessage,
-                timestamp: new Date().toISOString(),
-                read: true,
-            };
-            
-            storedConversations.update(convs => {
-                return convs.map(conv => {
-                    if (conv.id === conversationId) {
-                        return {
-                            ...conv,
-                            messages: [...conv.messages, message]
-                        };
-                    }
-                    return conv;
-                });
-            });
-            
-            newMessage = '';
-        }
+      if (newMessage.trim()) {
+        const userMessage = {
+          day: 'You',
+          text: newMessage,
+          timestamp: new Date().toISOString(),
+          read: true,
+        };
+  
+        storedConversations.update(convs => {
+          return convs.map(conv => {
+            if (conv.id === conversationId) {
+              conv.messages = [...conv.messages, userMessage];
+  
+              if (conv.waitingForReply) {
+                const lastMessageWithReply = [...conv.messages]
+                  .reverse()
+                  .find(msg => Array.isArray(msg.reply));
+                if (lastMessageWithReply) {
+                  const userTextLower = newMessage.toLowerCase();
+                  const keywordsLower = lastMessageWithReply.reply.map(k => k.toLowerCase());
+                  const hasKeyword = keywordsLower.some(keyword =>
+                    userTextLower.includes(keyword)
+                  );
+  
+                  const feedbackText = hasKeyword
+                    ? correct[Math.floor(Math.random() * correct.length)]
+                    : incorrect[Math.floor(Math.random() * incorrect.length)];
+  
+                  const feedbackMessage = {
+                    text: feedbackText,
+                    timestamp: new Date().toISOString(),
+                    day: $selectedDay,
+                    read: false,
+                  };
+  
+                  conv.messages = [...conv.messages, feedbackMessage];
+  
+                  if (hasKeyword) {
+                    conv.waitingForReply = false;
+                    // The next message will be sent by the interval in +layout.svelte
+                  }
+                  // Else, keep waitingForReply as true
+                }
+              }
+  
+              return conv;
+            }
+            return conv;
+          });
+        });
+  
+        newMessage = '';
+      }
     }
-    
+  
     function goBack() {
-        goto('/conversations');
+      goto('/conversations');
     }
-    
+  
     // Function to format the timestamp
     function formatLastMessaged(date) {
-        const now = new Date();
-        const diffInMinutes = Math.floor((now - date) / (1000 * 60));
-
-        if (diffInMinutes < 1) return 'Just now';
-        if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-        if (diffInMinutes < 1440) {
-            const hours = Math.floor(diffInMinutes / 60);
-            return `${hours}h ago`;
-        }
-        return date.toLocaleDateString();
+      const now = new Date();
+      const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+  
+      if (diffInMinutes < 1) return 'Just now';
+      if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+      if (diffInMinutes < 1440) {
+        const hours = Math.floor(diffInMinutes / 60);
+        return `${hours}h ago`;
+      }
+      return date.toLocaleDateString();
     }
-</script>
+  </script>
 
 
 

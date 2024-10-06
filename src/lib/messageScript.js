@@ -10,10 +10,10 @@ export const conversations = [
       {
         day: 'weds',
         messages: [
-          { text: 'Are you there Ceci?', reply: ['testing312', 'testing123'] },
+          { text: 'Are you there Ceci?', reply: ['hi', 'hello', 'yes', 'yo', 'si'], randomResponse: 'no' },
           { text: 'Behold, Ceci! Your mystical journey unfolds before you.', reply: 'none' },
           { text: 'As you traverse towards Bologna, remember that each step is a spell cast upon your path. The universe conspires to create magic in your favor.', reply: 'none' },
-          { text: 'Can you feel the anticipation building, like energy crackling before a grand illusion? ', reply: 'none' },
+          { text: 'Can you feel the anticipation building, like energy crackling before a grand illusion? ', reply: ['yes', 'yeah', 'yes', 'yee', 'si'], randomResponse: 'no' },
           { text: 'Tomorrow, your birthday shall manifest in a city where art and wonder intertwine.', reply: 'none' },
           { text: 'Though the journey may test your endurance, trust in the greater design.', reply: 'none' },
           { text: 'Rest now, for tomorrow, we shall conjure celebration in your honor!', reply: 'none' },
@@ -22,7 +22,7 @@ export const conversations = [
       {
         day: 'thurs',
         messages: [
-          { text: 'Happy Birthday, enchanting Ceci! Do you sense the mystical vibrations? ', reply: 'none' },
+          { text: 'Happy Birthday, enchanting Ceci! Do you sense the mystical vibrations? ', reply: ['yes', 'yeah', 'yes', 'yee', 'si'], randomResponse: "no" },
           { text: 'Bologna vibrates with celebratory energy, as if the very stones of the city whisper your name. ', reply: 'none' },
           { text: 'The festival magic mingles with your birthday aura, creating a tapestry of wonder. ', reply: 'none' },
           { text: 'London, Bristol, and Africa await their turn in your grand illusion, but today, you are the centerpiece of this magnificent show.', reply: 'none' },
@@ -50,10 +50,10 @@ export const conversations = [
       {
         day: 'weds',
         messages: [
-          { text: 'Ooh-la-la, Ceci! Your path to Italy might be as twisty as spaghetti, but isnt that where the yummiest stories begin? ', reply: 'none' },
-          { text: 'This journey is just the appetiser before the grand birthday feast of fun! ', reply: 'none' },
-          { text: 'As you zoom along, ponder this silly question: What carries you without moving, yet takes you to new heights? ', reply: 'imagination' },
-          { text: 'Let it soar-and-roar as you wiggle your way to tomorrows birthday bonanza!', reply: 'none' },
+          { text: 'Ooh-la-la, Ceci! Your path to Italy might be as twisty as spaghetti, but isnt that where the yummiest stories begin? ', reply: "none" },
+          { text: 'This journey is just the appetiser before the grand birthday feast of fun! ', reply: "none" },
+          { text: 'As you zoom along, ponder this silly question: What carries you without moving, yet takes you to new heights? ', reply: ["imagination", "dreams"], randomResponse: "yes" },
+          { text: 'Let it soar-and-roar as you wiggle your way to tomorrows birthday bonanza!', reply: "none" },
        ]
       },
       {
@@ -67,8 +67,8 @@ export const conversations = [
           { text: 'Batteries sometimes make us hum,', reply: 'none' },
           { text: 'Bringing pleasure and then some.', reply: 'none' },
           { text: 'Shapes and sizes, quite diverse,', reply: 'none' },
-          { text: 'What are we? Can you guess this verse? ', reply: 'none' },
-          { text: 'Your birthday gifts hinge on it, you clever cookie!', reply: 'none' },
+          { text: 'What are we? Can you guess this verse? ', reply: ["toys", "sex", "adult", "naughty"], randomResponse: "yes" },
+          { text: 'Your birthday gifts await, you clever cookie!', reply: 'none' },
         ]
       },
     ],
@@ -157,8 +157,8 @@ export const conversations = [
           { text: 'Greetings, Ceci, seeker of ancient wisdom, beloved of the Fates.', reply: '7:00 PM' },
           { text: 'The air of Bologna whispers secrets, and within you lies a sacred knowing.', reply: '7:20 PM' },
           { text: 'Your path shall carry you beyond the veil of the familiar — to Londons mists, Bristols rolling hills, and eventually to Africas sun-kissed lands. ', reply: '7:00 PM' },
-          { text: 'I am always running but never move. What am I? ', reply: '7:20 PM' },
-          { text: 'Make sure to the astronomical clock in Piazza Maggiore.', reply: '10:30 AM' },
+          { text: 'I am always running but never move. What am I? ', reply: ["time"], randomResponse: "yes" },
+          { text: 'Make sure to see the astronomical clock in Piazza Maggiore.', reply: '10:30 AM' },
           { text: 'There, make a wish for each of your future adventures, letting the cosmic timepiece set your dreams in motion!', reply: '10:30 AM' },
       
         ]
@@ -179,7 +179,7 @@ export const conversations = [
           { text: 'Ceci, gear up for the epic van adventures that await you! ', reply: '10:30 AM' },
           { text: 'But before you hit the open road, let us honor your nomadic spirit right here in Bologna. ', reply: '10:45 AM' },
           { text: 'Your mission: Seek out the legendary Neptunes Fountain in Piazza del Nettuno.', reply: '10:30 AM' },
-          { text: 'As a true adventurer, walk counterclockwise three times, symbolizing your readiness to learn from the incredible journeys ahead. ', reply: '10:45 AM' },
+          { text: 'As a true adventurer, walk counterclockwise around it three times, symbolising your readiness to learn from the incredible journeys ahead. ', reply: '10:45 AM' },
           { text: 'Dont forget to toss a small coin into the fountain, blessing future travelers who will follow in your tire tracks!', reply: '10:30 AM' },
       
         
@@ -215,7 +215,7 @@ export const conversations = [
           { text: 'Our darling Ceci, how the celebrations of love continue to blossom! ', reply: '4:00 PM' },
           { text: 'Today is a symphony of joy and affection.', reply: '4:15 PM' },
           { text: 'They will guide you to a present as sweet as your smile. ', reply: '4:15 PM' },
-          { text: 'Two hearts entwined, a table for two, candlelight flickers, what could this be? ', reply: '4:00 PM' },
+          { text: 'Two hearts entwined, a table for two, candlelight flickers, what could this be? ', reply: ["dinner", "meal", "food"] },
           { text: 'May you savor every moment of this special evening, wrapped in the warmth of affection!', reply: '4:15 PM' },
        
        

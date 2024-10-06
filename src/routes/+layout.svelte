@@ -1,6 +1,6 @@
 <script>
   import Loader from "../components/Loader.svelte";
-  import { onMount, setContext } from "svelte";
+  import { onMount, setContext, getContext } from "svelte";
   import Navigations from "../components/Navigations.svelte";
   import { conversations } from "../lib/messageScript.js";
   import { writable } from 'svelte/store';
@@ -10,11 +10,12 @@
 
   let loading = true;
   const storedConversations = writable([]);
-  const storedPosts = writable([]);
   setContext('storedConversations', storedConversations);
-  setContext('storedPosts', storedPosts);
 
-  let selectedDay = 'weds'; // Default selected day
+  // Define selectedDay as a writable store
+  let selectedDay = writable('weds'); // Default selected day
+  setContext('selectedDay', selectedDay);
+
   let messageInterval;
 
   let currentConversationId = null;
@@ -32,7 +33,6 @@
 
   let messageTimeout;
 
-
   onMount(() => {
     setTimeout(() => {
       loading = false;
@@ -40,12 +40,12 @@
 
     // Initialize storedConversations
     let loadedConversations = JSON.parse(localStorage.getItem('conversations')) || [];
-    console.log('Loaded Conversations from Local Storage:', loadedConversations); // Debug log
     if (loadedConversations.length === 0) {
       loadedConversations = conversations.map(conv => ({
         id: conv.id,
         character: conv.character,
-        messages: []
+        messages: [],
+        waitingForReply: false, // Initialize the flag
       }));
     } else {
       // Ensure all conversations from messageScript.js are present
@@ -54,46 +54,32 @@
           loadedConversations.push({
             id: conv.id,
             character: conv.character,
-            messages: []
+            messages: [],
+            waitingForReply: false, // Initialize the flag
           });
         }
       });
     }
-    storedConversations.set(loadedConversations)
+    storedConversations.set(loadedConversations);
 
-    // Initialize storedPosts
-    let loadedPosts = JSON.parse(localStorage.getItem('posts')) || [];
-    if (loadedPosts.length === 0) {
 
-// Create 4 initial posts
-for (let i = 0; i < 4; i++) {
-  loadedPosts.push(createRandomPost());
-}
-}
-storedPosts.set(loadedPosts);
+    // Subscribe to changes in storedConversations and update localStorage
+    storedConversations.subscribe(convs => {
+      localStorage.setItem('conversations', JSON.stringify(convs));
+    });
 
-// Subscribe to changes in storedConversations and update localStorage
-storedConversations.subscribe(convs => {
-localStorage.setItem('conversations', JSON.stringify(convs));
-});
+    // Start sending messages for the selected day
+    startSendingMessages();
+  });
 
-// Subscribe to changes in storedPosts and update localStorage
-storedPosts.subscribe(posts => {
-localStorage.setItem('posts', JSON.stringify(posts));
-});
-
-// Start sending messages for the selected day
-startSendingMessages();
-
-// Start creating random posts every 10 seconds
-setInterval(createAndStoreRandomPost, 10000);
-
-});
-
-function startSendingMessages() {
+  function startSendingMessages() {
     clearInterval(messageInterval);
     messageInterval = setInterval(() => {
-      const dayMessages = getDayMessages(selectedDay);
+      const dayMessages = getDayMessages($selectedDay).filter(conv => {
+        // Only send messages if not waiting for reply
+        const storedConv = $storedConversations.find(sc => sc.id === conv.id);
+        return storedConv && !storedConv.waitingForReply;
+      });
       if (dayMessages.length > 0) {
         dayMessages.forEach(conversation => {
           sendNextMessage(conversation.id, conversation.messages);
@@ -102,79 +88,66 @@ function startSendingMessages() {
     }, getRandomDelay());
   }
 
-function getDayMessages(day) {
-return conversations.filter(conv => 
-conv.messages.some(msg => msg.day === day)
-).map(conv => ({
-id: conv.id,
-messages: conv.messages.find(msg => msg.day === day).messages
-}));
-}
+  function getDayMessages(day) {
+    return conversations.filter(conv =>
+      conv.messages.some(msg => msg.day === day)
+    ).map(conv => ({
+      id: conv.id,
+      messages: conv.messages.find(msg => msg.day === day).messages
+    }));
+  }
 
-function sendNextMessage(conversationId, messages) {
+  function sendNextMessage(conversationId, messages) {
     storedConversations.update(convs => {
-        let updatedConvs = [...convs];
-        let conversation = updatedConvs.find(c => c.id === conversationId);
-        if (!conversation) {
-            const originalConv = conversations.find(c => c.id === conversationId);
-            conversation = { id: conversationId, character: originalConv.character, messages: [] };
-            updatedConvs.push(conversation);
-        }
+      let updatedConvs = [...convs];
+      let conversation = updatedConvs.find(c => c.id === conversationId);
+      if (!conversation) {
+        const originalConv = conversations.find(c => c.id === conversationId);
+        conversation = { id: conversationId, character: originalConv.character, messages: [], waitingForReply: false };
+        updatedConvs.push(conversation);
+      }
 
-        // Filter messages for the selected day
-        const messagesForSelectedDay = conversation.messages.filter(msg => msg.day === selectedDay);
-        const nextMessageIndex = messagesForSelectedDay.length;
-        const previousMessage = messagesForSelectedDay[nextMessageIndex - 1];
-
-        // Check if there are more messages to send for the selected day
-        if (nextMessageIndex < messages.length) {
-            // Send the next message only if it's the first message or the previous message has been read
-            if (!previousMessage || previousMessage.read) {
-                const message = {
-                    text: messages[nextMessageIndex].text,
-                    timestamp: new Date().toISOString(),
-                    day: selectedDay,
-                    read: false, // Mark as unread initially
-                };
-                conversation.messages = [...conversation.messages, message];
-            }
-        }
-
+      if (conversation.waitingForReply) {
+        // Do not send the next message until the user responds correctly
         return updatedConvs;
+      }
+
+      // Determine the number of messages sent for the selected day
+      const messagesSentForDay = conversation.messages.filter(msg => msg.day === $selectedDay).length;
+      const nextMessageIndex = messagesSentForDay;
+      const previousMessage = conversation.messages[nextMessageIndex - 1];
+
+      if (nextMessageIndex < messages.length) {
+        if (!previousMessage || previousMessage.read) {
+          const nextMessage = messages[nextMessageIndex];
+          const message = {
+            text: nextMessage.text,
+            timestamp: new Date().toISOString(),
+            day: $selectedDay,
+            read: false,
+            reply: nextMessage.reply || null, // Include reply field
+          };
+          conversation.messages = [...conversation.messages, message];
+
+          // If the message requires a reply, set waitingForReply to true
+          if (Array.isArray(nextMessage.reply)) {
+            conversation.waitingForReply = true;
+          }
+        }
+      }
+
+      return updatedConvs;
     });
-}
+  }
 
-
-
-
-function getRandomDelay() {
-return (Math.floor(Math.random() * 5) + 1) * 1000; // 1-5 seconds
-}
-
-
-function createRandomPost() {
-const randomCharacter = feedCharacters[Math.floor(Math.random() * feedCharacters.length)];
-const likedByCharacter = feedCharacters[Math.floor(Math.random() * feedCharacters.length)];
-return {
-profilePic: randomCharacter.profilePic,
-username: randomCharacter.username,
-postImage: randomCharacter.postImages[Math.floor(Math.random() * randomCharacter.postImages.length)],
-likedBy: likedByCharacter.username,
-caption: comments[Math.floor(Math.random() * comments.length)],
-commentCount: Math.floor(Math.random() * 200) + 1
-};
-}
-
-function createAndStoreRandomPost() {
-storedPosts.update(posts => {
-const newPost = createRandomPost();
-return [newPost, ...posts];
-});
-}
+  function getRandomDelay() {
+    return (Math.floor(Math.random() * 5) + 1) * 1000; // 1-5 seconds
+  }
 </script>
 
+
 <div class="day-selector">
-<select bind:value={selectedDay} on:change={handleDayChange}>
+<select bind:value={$selectedDay} on:change={handleDayChange}>
 <option value="weds">Wednesday</option>
 <option value="thurs">Thursday</option>
 <option value="fri">Friday</option>
