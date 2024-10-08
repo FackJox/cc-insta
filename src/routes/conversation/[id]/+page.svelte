@@ -21,11 +21,30 @@
   }
 
   let isCharacterTyping = false;
+  
+  $: {
+    if (conversation) {
+      const characterMessagesForDay = conversation.messages.filter(
+        (msg) => msg.day === $selectedDay && msg.sender !== "You" && !msg.isFeedback
+      );
+      const originalConversation = conversations.find(c => c.id === conversationId);
+      const allMessagesForDay = originalConversation?.messages?.find(m => m.day === $selectedDay)?.messages || [];
+      
+      isCharacterTyping = !conversation.waitingForReply && 
+                          allMessagesForDay.length > characterMessagesForDay.length;
 
-
-
-  $: isCharacterTyping = conversation && conversation.waitingForReply === false && conversation.messages[conversation.messages.length - 1].day !== 'You';
-
+      console.log('Debug info:', {
+        conversationId,
+        selectedDay: $selectedDay,
+        characterMessagesForDay: characterMessagesForDay.length,
+        allMessagesForDay: allMessagesForDay.length,
+        waitingForReply: conversation.waitingForReply,
+        isCharacterTyping
+      });
+    } else {
+      isCharacterTyping = false;
+    }
+  }
 
   // Mark messages as read when viewing the conversation
   $: if (conversation) {

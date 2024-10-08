@@ -50,7 +50,7 @@ export const conversations = [
       {
         day: 'weds',
         messages: [
-          { text: 'Ooh-la-la, Ceci! Your path to Italy might be as twisty as spaghetti, but isnt that where the yummiest stories begin? ', reply: "none" },
+          { text: 'Ooh-la-la, Ceci! Your path to Italy might be as twisty as spaghetti, but isnt that where the yummiest stories begin? ', reply: "any" },
           { text: 'This journey is just the appetiser before the grand birthday feast of fun! ', reply: "none" },
           { text: 'As you zoom along, ponder this silly question: What carries you without moving, yet takes you to new heights? ', reply: ["imagination", "dreams"], randomResponse: "yes" },
           { text: 'Let it soar-and-roar as you wiggle your way to tomorrows birthday bonanza!', reply: "none" },

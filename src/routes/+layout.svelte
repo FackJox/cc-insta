@@ -135,11 +135,14 @@
       }
 
       // Get all character messages for the selected day
-      // Inside sendNextMessage function
       const characterMessagesForDay = conversation.messages.filter(
         (msg) =>
-          msg.day === $selectedDay && msg.day !== "You" && !msg.isFeedback, // Exclude feedback messages
+          msg.day === $selectedDay && msg.day !== "You" && !msg.isFeedback
       );
+
+      if (characterMessagesForDay.length >= messages.length) {
+        return updatedConvs; // Exit if all messages for this day have been sent
+      }
 
       const messagesSentForDay = characterMessagesForDay.length;
       const nextMessageIndex = messagesSentForDay;
@@ -156,24 +159,21 @@
             timestamp: new Date().toISOString(),
             day: $selectedDay,
             read: false,
-            reply: nextMessage.reply || null, // Include reply field
+            reply: nextMessage.reply || null,
           };
           conversation.messages = [...conversation.messages, message];
 
           // Handle different reply types
           if (nextMessage.reply === "none") {
-            // No reply needed, proceed to next message after delay
             conversation.waitingForReply = false;
           } else if (nextMessage.reply === "any") {
-            // Wait for any reply from user
             conversation.waitingForReply = true;
             conversation.expectedReplyType = "any";
           } else if (Array.isArray(nextMessage.reply)) {
-            // Wait for specific keyword reply
             conversation.waitingForReply = true;
             conversation.expectedReplyType = "keyword";
             conversation.expectedKeywords = nextMessage.reply.map((k) =>
-              k.toLowerCase(),
+              k.toLowerCase()
             );
           }
         }
@@ -182,6 +182,8 @@
       return updatedConvs;
     });
   }
+
+
   function getRandomDelay() {
     return (Math.floor(Math.random() * 7) + 3) * 1000; // 1-5 seconds
   }
@@ -210,15 +212,47 @@
       return [newPost, ...posts];
     });
   }
+
+  function resetDayAndClearStorage() {
+    // Reset selectedDay to "weds"
+    $selectedDay = "weds";
+
+    // Clear all localStorage
+    localStorage.clear();
+
+    // Reinitialize storedConversations and storedPosts
+    storedConversations.set(conversations.map((conv) => ({
+      id: conv.id,
+      character: conv.character,
+      messages: [],
+      waitingForReply: false,
+    })));
+
+    storedPosts.set([]);
+
+    // Recreate initial posts
+    for (let i = 0; i < 4; i++) {
+      createAndStoreRandomPost();
+    }
+
+    // Restart sending messages
+    clearInterval(messageInterval);
+    startSendingMessages();
+  }
 </script>
 
-<div class="day-selector">
-  <select bind:value={$selectedDay} on:change={handleDayChange}>
-    <option value="weds">Wednesday</option>
-    <option value="thurs">Thursday</option>
-    <option value="fri">Friday</option>
-    <option value="sat">Saturday</option>
-  </select>
+<div class="day-selector-container">
+  <div class="day-selector">
+    <select bind:value={$selectedDay} on:change={handleDayChange}>
+      <option value="weds">Wednesday</option>
+      <option value="thurs">Thursday</option>
+      <option value="fri">Friday</option>
+      <option value="sat">Saturday</option>
+    </select>
+  </div>
+  <button class="reset-button" on:click={resetDayAndClearStorage}>
+    Reset
+  </button>
 </div>
 
 {#if loading}
@@ -241,5 +275,31 @@
     left: 0;
     z-index: 1000;
     padding-bottom: env(safe-area-inset-bottom);
+  }
+
+
+  .day-selector-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .day-selector {
+    margin-right: 10px;
+  }
+
+  .reset-button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .reset-button:hover {
+    background-color: #d32f2f;
   }
 </style>
