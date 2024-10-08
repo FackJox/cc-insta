@@ -126,7 +126,7 @@
                 <img src={conversation.character.image} alt={conversation.character.name} class="profile-pic">
                 <span class="username" on:click={() => navigateToProfile(conversation.character)}>
                     {conversation.character.name}
-                </span>
+                </span> 
             </div>
         </div>
 

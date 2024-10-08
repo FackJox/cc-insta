@@ -1,15 +1,28 @@
 export const mainCharacters = [
     {
-        profilePic: "/assets/akash.webp",
+        profilePic: "/assets/ceci/ceci_01.png",
         username: "ceci.love",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/ceci/ceci_01.png",
+          "/assets/ceci/ceci_02.png",
+          "/assets/ceci/ceci_03.png",
+          "/assets/ceci/ceci_04.png",
+          "/assets/ceci/ceci_05.png",
+          "/assets/ceci/ceci_06.png",
+          "/assets/ceci/ceci_07.png",
+          "/assets/ceci/ceci_08.png",
+          "/assets/ceci/ceci_09.png",
+          "/assets/ceci/ceci_10.png",
+          "/assets/ceci/ceci_11.png",
+          "/assets/ceci/ceci_12.png",
+          "/assets/ceci/ceci_13.png",
+          "/assets/ceci/ceci_14.png",
+          "/assets/ceci/ceci_15.png",
+
         ],
-        posts: "3412",
-        followers: "12",
-        following: "142",
+        posts: "3,412",
+        followers: "2,225",
+        following: "642",
         name: "Ceci Summer",
         initialPosts: "",
         highlights: [
@@ -18,16 +31,19 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.jpg",
+        profilePic: "/assets/magician/magician_01.png",
         username: "themagicianx",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/magician/magician_01.png",
+          "/assets/magician/magician_02.png",
+          "/assets/magician/magician_03.png",
+          "/assets/magician/magician_04.png",
+          "/assets/magician/magician_05.png",
+
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "2,911",
+        followers: "13.8K",
+        following: "2,225",
         name: "The Magician",
         initialPosts: "",
         highlights: [
@@ -36,16 +52,16 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/jay.jpg",
+        profilePic: "/assets/fool/fool_01.png",
         username: "foolishways",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/fool/fool_01.png",
+          "/assets/fool/fool_01.png",
+          "/assets/fool/fool_01.png",
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "1",
+        followers: "0",
+        following: "2",
         name: "The Fool",
         initialPosts: "",
         highlights: [
@@ -54,16 +70,23 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/jay.jp",
+        profilePic: "/assets/empress/empress_01.png",
         username: "goldenempress",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/empress/empress_01.png",
+          "/assets/empress/empress_02.png",
+          "/assets/empress/empress_03.png",
+          "/assets/empress/empress_04.png",
+          "/assets/empress/empress_05.png",
+          "/assets/empress/empress_06.png",
+          "/assets/empress/empress_07.png",
+          "/assets/empress/empress_08.png",
+          "/assets/empress/empress_09.png",
+
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "181",
+        followers: "3,778",
+        following: "1,297",
         name: "The Empress",
         initialPosts: "",
         highlights: [
@@ -72,34 +95,22 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.jpg",
-        username: "rulemyrealm",
-        postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
-        ],
-        posts: "",
-        followers: "",
-        following: "",
-        name: "The Emperor",
-        initialPosts: "",
-        highlights: [
-          { title: "Community Event", picture: "/assets/people_story1.webp" },
-          { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
-        ]
-      },
-      {
-        profilePic: "/assets/abp.jpg",
+        profilePic: "/assets/world/world_02.png",
         username: "wanderworlds",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/world/world_02.png",
+          "/assets/world/world_03.png",
+          "/assets/world/world_04.png",
+          "/assets/world/world_05.png",
+          "/assets/world/world_06.png",
+          "/assets/world/world_07.png",
+          "/assets/world/world_08.png",
+          "/assets/world/world_09.png",
+
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "554",
+        followers: "8.2B",
+        following: "2,746",
         name: "The World",
         initialPosts: "",
         highlights: [
@@ -108,16 +119,21 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.jpg",
+        profilePic: "/assets/highpriestess/highpriestess_01.png",
         username: "mysticpriestess",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/highpriestess/highpriestess_01.png",
+          "/assets/highpriestess/highpriestess_02.png",
+          "/assets/highpriestess/highpriestess_03.png",
+          "/assets/highpriestess/highpriestess_04.png",
+          "/assets/highpriestess/highpriestess_05.png",
+          "/assets/highpriestess/highpriestess_06.png",
+          "/assets/highpriestess/highpriestess_07.png",
+
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "90",
+        followers: "6,159",
+        following: "2,731",
         name: "The High Priestess",
         initialPosts: "",
         highlights: [
@@ -126,16 +142,20 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.jpg",
+        profilePic: "/assets/chariot/chariot_01.png",
         username: "adventureonwheels",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/chariot/chariot_01.png",
+          "/assets/chariot/chariot_02.png",
+          "/assets/chariot/chariot_03.png",
+          "/assets/chariot/chariot_04.png",
+          "/assets/chariot/chariot_05.png",
+          "/assets/chariot/chariot_06.png",
+          "/assets/chariot/chariot_07.png",
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "354",
+        followers: "1,697",
+        following: "169",
         name: "The Chariot",
         initialPosts: "",
         highlights: [
@@ -144,16 +164,18 @@ export const mainCharacters = [
         ]
       },
       {
-        profilePic: "/assets/abp.jpg",
+        profilePic: "/assets/lovers/lovers_01.png",
         username: "togetherasone",
         postImages: [
-          "/assets/akash.webp",
-          "/assets/jpost.webp",
-          "/assets/tripripost.jpg",
+          "/assets/lovers/lovers_01.png",
+          "/assets/lovers/lovers_02.png",
+          "/assets/lovers/lovers_03.png",
+          "/assets/lovers/lovers_04.png",
+          "/assets/lovers/lovers_05.png",
         ],
-        posts: "",
-        followers: "",
-        following: "",
+        posts: "7",
+        followers: "2",
+        following: "2",
         name: "The Lovers",
         initialPosts: "",
         highlights: [

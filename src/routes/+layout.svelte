@@ -10,7 +10,9 @@
 
   let loading = true;
   const storedConversations = writable([]);
+  const storedPosts = writable([]);
   setContext('storedConversations', storedConversations);
+  setContext('storedPosts', storedPosts);
 
   // Define selectedDay as a writable store
   let selectedDay = writable('weds'); // Default selected day
@@ -31,7 +33,6 @@
     startSendingMessages();
 }
 
-  let messageTimeout;
 
   onMount(() => {
     setTimeout(() => {
@@ -62,14 +63,33 @@
     }
     storedConversations.set(loadedConversations);
 
+      // Initialize storedPosts
+      let loadedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    if (loadedPosts.length === 0) {
+
+// Create 4 initial posts
+for (let i = 0; i < 4; i++) {
+  loadedPosts.push(createRandomPost());
+}
+}
+storedPosts.set(loadedPosts);
+
 
     // Subscribe to changes in storedConversations and update localStorage
     storedConversations.subscribe(convs => {
       localStorage.setItem('conversations', JSON.stringify(convs));
     });
 
+    storedPosts.subscribe(posts => {
+localStorage.setItem('posts', JSON.stringify(posts));
+});
+
     // Start sending messages for the selected day
     startSendingMessages();
+
+    // Start creating random posts every 10 seconds
+setInterval(createAndStoreRandomPost, 10000);
+
   });
 
   function startSendingMessages() {
@@ -143,6 +163,26 @@
   function getRandomDelay() {
     return (Math.floor(Math.random() * 5) + 1) * 1000; // 1-5 seconds
   }
+
+  function createRandomPost() {
+const randomCharacter = feedCharacters[Math.floor(Math.random() * feedCharacters.length)];
+const likedByCharacter = feedCharacters[Math.floor(Math.random() * feedCharacters.length)];
+return {
+profilePic: randomCharacter.profilePic,
+username: randomCharacter.username,
+postImage: randomCharacter.postImages[Math.floor(Math.random() * randomCharacter.postImages.length)],
+likedBy: likedByCharacter.username,
+caption: comments[Math.floor(Math.random() * comments.length)],
+commentCount: Math.floor(Math.random() * 200) + 1
+};
+}
+
+function createAndStoreRandomPost() {
+storedPosts.update(posts => {
+const newPost = createRandomPost();
+return [newPost, ...posts];
+});
+}
 </script>
 
 

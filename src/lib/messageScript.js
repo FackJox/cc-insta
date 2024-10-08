@@ -4,7 +4,7 @@ export const conversations = [
     character: {
       name: 'The Magician',
       username: 'themagicianx',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/magician/magician_01.png',
     },
     messages: [
       {
@@ -78,7 +78,7 @@ export const conversations = [
     character: {
       name: 'The Empress',
       username: 'goldenempress',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/empress/empress_01.png',
     },
     messages: [
       {
@@ -107,7 +107,7 @@ export const conversations = [
     character: {
       name: 'The Hermit',
       username: 'solitudeandsage',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/hermit/hermit_01.png',
     },
     messages: [
       {
@@ -128,7 +128,7 @@ export const conversations = [
     character: {
       name: 'The World',
       username: 'wanderworlds',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/world/world_02.png',
     },
     messages: [
       {
@@ -148,7 +148,7 @@ export const conversations = [
     character: {
       name: 'The High Priestess',
       username: 'mysticpriestess',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/highpriestess/highpriestess_01.png',
     },
     messages: [
       {
@@ -170,7 +170,7 @@ export const conversations = [
     character: {
       name: 'The Chariot',
       username: 'adventureonwheels',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/chariot/chariot_01.png',
     },
     messages: [
       {
@@ -206,7 +206,7 @@ export const conversations = [
     character: {
       name: 'The Lovers',
       username: 'togetherasone',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/lovers/lovers_01.png',
     },
     messages: [
       {

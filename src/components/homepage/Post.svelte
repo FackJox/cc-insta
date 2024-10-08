@@ -52,7 +52,7 @@ function navigateToProfile(username) {
       <span class="comments">
         View all {commentCount} comments <br />
         <div class="profile-pic">
-          <img src="assets/krish.jpg" alt="" width="30px" /> Add a comment...
+          <img src="assets/ceci/ceci_01.png" alt="" width="30px" /> Add a comment...
         </div>
       </span>
     </div>
