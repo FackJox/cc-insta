@@ -26,14 +26,14 @@
 
 
         <div class="aside">
-            <img src="icons/heart.png" width="25" alt="" />
-            <img src="icons/chat.png" width="25" alt="" />
-            <img src="icons/share.png" width="25" alt="" />
-            <img src="icons/dots.png" width="25" alt="" />
+            <img src="/icons/heart.png" width="25" alt="" />
+            <img src="/icons/chat.png" width="25" alt="" />
+            <img src="/icons/share.png" width="25" alt="" />
+            <img src="/icons/dots.png" width="25" alt="" />
         </div>
         <div class="details">
             <div class="user">
-                <img src="assets/aditya.jpg" width="25px" alt="" />
+                <img src="/assets/aditya.jpg" width="25px" alt="" />
                 <b>Username</b>
                 <button>Follow</button>
             </div>

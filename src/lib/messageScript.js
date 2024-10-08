@@ -84,8 +84,9 @@ export const conversations = [
       {
         day: 'thurs',
         messages: [
-          { text: 'Oh, radiant Ceci, on this most precious day of your birth, your beauty outshines even the most exquisite masterpieces of Bologna.', reply: 'none' },
+          { text: 'Oh, radiant Ceci, on this most precious day of your birth, your beauty outshines even the most exquisite masterpieces of Bologna.', reply: 'any' },
           { text: 'Let your spirit bloom amidst the vibrant petals of the art festival. ', reply: 'none' },
+          { text: 'Have the greatest day with your love.', reply: 'none' },
     ]
       },
       {
@@ -95,7 +96,7 @@ export const conversations = [
           { text: 'As the art festival reaches its crescendo, so too does your excitement for the adventures that await you. ', reply: 'none' },
           { text: 'A final challenge in Bologna, my sweet: Seek out the mural that embodies international unity.', reply: 'none' },
           { text: 'Within its vibrant hues lies a clue for your journey.', reply: 'none' },
-          { text: 'But first, a riddle to nurture your mind: I have rivers but no water, forests but no trees, cities but no buildings. What am I?', reply: 'none' },
+          { text: 'But first, a riddle to nurture your mind: I have rivers but no water, forests but no trees, cities but no buildings. What am I?', reply: ["map", "globe"] },
           { text: 'Once you embrace it, the world shall unfurl before you like a blossoming rose.', reply: 'none' },
      ]
       },
@@ -111,9 +112,9 @@ export const conversations = [
     },
     messages: [
       {
-        day: 'fri',
+        day: 'thurs',
         messages: [
-          { text: 'Ceci, on this day of your birth, I offer you not congratulations, but contemplation.', reply: 'none' },
+          { text: 'Ceci, on this day of your birth, I offer you not congratulations, but contemplation.', reply: 'any' },
           { text: 'Your spirit of adventure is a flame in the darkness.', reply: 'none' },
           { text: 'Soon, the streets of London will be your teacher, and the van life in Bristol your classroom.', reply: 'none' },
           { text: 'Before you set sail for your next grand adventure, immerse yourself in the ocean of creativity that surrounds you. ', reply: 'none' },
@@ -134,11 +135,11 @@ export const conversations = [
       {
         day: 'fri',
         messages: [
-          { text: 'Ceci, you are a world unto yourself, a universe of infinite possibilities. ', reply: '3:00 PM' },
-          { text: 'Bologna still reverberates with the echoes of your birthday jubilation, while future adventures beckon on the horizon. ', reply: '3:15 PM' },
-          { text: 'Your next quest: Journey to the MAST Foundation and discover the exhibit that weaves a thread between Bologna and one of your future destinations. ', reply: '3:00 PM' },
-          { text: 'What whispers of wisdom does it offer for your impending odyssey? ', reply: '3:15 PM' },
-          { text: 'Let the art speak to your soul and guide your path across the globe.', reply: '3:00 PM' },     
+          { text: 'Ceci, you are a world unto yourself, a universe of infinite possibilities. ', reply: 'any' },
+          { text: 'Bologna still reverberates with the echoes of your birthday jubilation, while future adventures beckon on the horizon. ', reply: 'none' },
+          { text: 'Your next quest: Journey to the MAST Foundation and discover the exhibit that weaves a thread between Bologna and one of your future destinations. ', reply: 'any' },
+          { text: 'What whispers of wisdom does it offer for your impending odyssey? ', reply: 'any' },
+          { text: 'Let the art speak to your soul and guide your path across the globe.', reply: 'none' },     
         ]
       },
     ],
@@ -154,12 +155,12 @@ export const conversations = [
       {
         day: 'fri',
         messages: [
-          { text: 'Greetings, Ceci, seeker of ancient wisdom, beloved of the Fates.', reply: '7:00 PM' },
-          { text: 'The air of Bologna whispers secrets, and within you lies a sacred knowing.', reply: '7:20 PM' },
-          { text: 'Your path shall carry you beyond the veil of the familiar — to Londons mists, Bristols rolling hills, and eventually to Africas sun-kissed lands. ', reply: '7:00 PM' },
-          { text: 'I am always running but never move. What am I? ', reply: ["time"], randomResponse: "yes" },
-          { text: 'Make sure to see the astronomical clock in Piazza Maggiore.', reply: '10:30 AM' },
-          { text: 'There, make a wish for each of your future adventures, letting the cosmic timepiece set your dreams in motion!', reply: '10:30 AM' },
+          { text: 'Greetings, Ceci, seeker of ancient wisdom, beloved of the Fates.', reply: 'any' },
+          { text: 'The air of Bologna whispers secrets, and within you lies a sacred knowing.', reply: 'none' },
+          { text: 'Your path shall carry you beyond the veil of the familiar — to Londons mists, Bristols rolling hills, and eventually to Africas sun-kissed lands. ', reply: 'none' },
+          { text: 'I am always running but never move. What am I? ', reply: ["time", "clock"] },
+          { text: 'Make sure to see the astronomical clock in Piazza Maggiore.', reply: 'none' },
+          { text: 'There, make a wish for each of your future adventures, letting the cosmic timepiece set your dreams in motion!', reply: 'any' },
       
         ]
       },
@@ -176,11 +177,14 @@ export const conversations = [
       {
         day: 'fri',
         messages: [
-          { text: 'Ceci, gear up for the epic van adventures that await you! ', reply: '10:30 AM' },
-          { text: 'But before you hit the open road, let us honor your nomadic spirit right here in Bologna. ', reply: '10:45 AM' },
-          { text: 'Your mission: Seek out the legendary Neptunes Fountain in Piazza del Nettuno.', reply: '10:30 AM' },
-          { text: 'As a true adventurer, walk counterclockwise around it three times, symbolising your readiness to learn from the incredible journeys ahead. ', reply: '10:45 AM' },
-          { text: 'Dont forget to toss a small coin into the fountain, blessing future travelers who will follow in your tire tracks!', reply: '10:30 AM' },
+          { text: 'Happy birthday for yesterday Ceci!! ', reply: 'any' },
+
+          { text: 'Are you ready to gear up for the epic van adventures that await you??', reply: 'any' },
+          { text: 'But before you hit the open road, let us honor your nomadic spirit right here in Bologna. ', reply: 'none' },
+          { text: 'Your mission: Seek out the legendary Neptunes Fountain in Piazza del Nettuno.', reply: 'none' },
+          { text: 'Okay Ceci?', reply: 'any' },
+          { text: 'Cool, as a true adventurer, walk counterclockwise around it three times, symbolising your readiness to learn from the incredible journeys ahead. ', reply: 'none' },
+          { text: 'Dont forget to toss a small coin into the fountain, blessing future travelers who will follow in your tire tracks!', reply: 'none' },
       
         
         ]
@@ -189,12 +193,12 @@ export const conversations = [
       {
         day: 'sat',
         messages: [
-          { text: 'Ceci, your path is illuminated by the stars of possibility, each one a beacon guiding you to new horizons! ', reply: '10:30 AM' },
-          { text: 'After the art-filled streets of Bologna, the bustling city of London calls your name, followed by the freedom of van life in Bristol, and finally, the wild beauty of Africa. ', reply: '10:45 AM' },
-          { text: 'I can see it now - you will be caring for a furry friend in London, embracing the nomadic lifestyle in Bristol, and ringing in the New Year at a vibrant festival in Kenya! ', reply: '10:30 AM' },
-          { text: 'But for now, let us focus on the present adventure. ', reply: '10:45 AM' },
-          { text: 'Let your inner eye guide you through the labyrinth of possibility.', reply: '7:00 PM' },
-          { text: 'Embrace your partner and the travels ahead.', reply: '7:00 PM' },
+          { text: 'Ceci, your path is illuminated by the stars of possibility, each one a beacon guiding you to new horizons! ', reply: 'none' },
+          { text: 'After the art-filled streets of Bologna, the bustling city of London calls your name, followed by the freedom of van life in Bristol, and finally, the wild beauty of Africa. Are you excited?? ', reply: 'any' },
+          { text: 'I can see it now - there will be so much joy caring for a furry friend in London, embracing the nomadic lifestyle in Bristol, and ringing in the New Year at a vibrant festival in Kenya! ', reply: 'none' },
+          { text: 'But for now, let us focus on the present adventure. ', reply: 'none' },
+          { text: 'Let your inner eye guide you through the labyrinth of possibility.', reply: 'none' },
+          { text: 'Embrace your partner, and embrace the travels ahead.', reply: 'none' },
 
         
         ]
@@ -212,11 +216,11 @@ export const conversations = [
       {
         day: 'sat',
         messages: [
-          { text: 'Our darling Ceci, how the celebrations of love continue to blossom! ', reply: '4:00 PM' },
-          { text: 'Today is a symphony of joy and affection.', reply: '4:15 PM' },
-          { text: 'They will guide you to a present as sweet as your smile. ', reply: '4:15 PM' },
+          { text: 'Our darling Ceci, how the celebrations of love continue to blossom! ', reply: 'none' },
+          { text: 'Today is a symphony of joy and affection.', reply: 'none' },
+          { text: 'They will guide you to a present as sweet as your smile. ', reply: 'none' },
           { text: 'Two hearts entwined, a table for two, candlelight flickers, what could this be? ', reply: ["dinner", "meal", "food"] },
-          { text: 'May you savor every moment of this special evening, wrapped in the warmth of affection!', reply: '4:15 PM' },
+          { text: 'May you savor every moment of this special evening, wrapped in the warmth of affection!', reply: 'none' },
        
        
         ]

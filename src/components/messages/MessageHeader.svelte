@@ -8,7 +8,7 @@
 
 <div class="message-header">
   <div class="msg-header">
-    <img src="icons/back.png" alt="" width="25" on:click={back}>
+    <img src="/icons/back.png" alt="" width="25" on:click={back}>
     <span>ceci.love</span>
   </div>
   

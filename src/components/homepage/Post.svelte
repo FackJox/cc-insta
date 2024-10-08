@@ -29,7 +29,7 @@ function navigateToProfile(username) {
         </div>
         <div class="col-2">
             <div class="more">
-                <img src="icons/dots.png" alt="" width="20px" />
+                <img src="/icons/dots.png" alt="" width="20px" />
             </div>
         </div>
     </div>
@@ -38,12 +38,12 @@ function navigateToProfile(username) {
     </div>
     <div class="row-3">
       <div class="col-1">
-        <img src="icons/heart.png" alt="" width="25px" />
-        <img src="icons/chat.png" alt="" width="25px" />
-        <img src="icons/share.png" alt="" width="25px" />
+        <img src="/icons/heart.png" alt="" width="25px" />
+        <img src="/icons/chat.png" alt="" width="25px" />
+        <img src="/icons/share.png" alt="" width="25px" />
       </div>
       <div class="col-2">
-        <img src="icons/ribbon.png" alt="" width="25px" />
+        <img src="/icons/ribbon.png" alt="" width="25px" />
       </div>
     </div>
     <div class="row-4">
@@ -52,7 +52,7 @@ function navigateToProfile(username) {
       <span class="comments">
         View all {commentCount} comments <br />
         <div class="profile-pic">
-          <img src="assets/ceci/ceci_01.png" alt="" width="30px" /> Add a comment...
+          <img src="/assets/ceci/ceci_01.png" alt="" width="30px" /> Add a comment...
         </div>
       </span>
     </div>

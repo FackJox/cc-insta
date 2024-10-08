@@ -1,28 +1,19 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, getContext } from "svelte";
     import { goto } from "$app/navigation";
     import Feed from "../components/homepage/Feed.svelte";
     import Stories from "../components/homepage/Stories.svelte";
 
-    // function homePage() {
-    //         currentPage.style.display = "none";
-    //         currentPage = document.getElementById("home-page");
-    //         currentPage.style.display = "block";
-    //     }
+    const storedConversations = getContext('storedConversations');
 
-    //         let currentPage = document.getElementById("home-page");
-    //     function reelMode() {
-    //         alert("Android:\nSingle click to play the current reel\nDouble click to mute current reel")
-    //         currentPage.style.display = "none";
-    //         currentPage = document.getElementById("reel-page");
-    //         currentPage.style.display = "block";
-
-    //
-    //     }
+    // Check for unread messages across all conversations
+    $: hasUnreadMessages = $storedConversations.some(conversation => 
+        conversation.messages.some(msg => !msg.read)
+    );
 
     function redirectTo(path) {
-            goto(path);
-        }
+        goto(path);
+    }
 
     onMount(() => {
         if ("Notification" in window) {
@@ -32,27 +23,29 @@
                 }
             });
         }
-
-     
     });
 </script>
 
 <main>
-    <!-- instagram home home-page -->
     <div class="home-page" id="home-page">
         <header>
             <div class="logo-ico">
-                <img src="icons/insta-name-logo.png" width="150" />
+                <img src="/icons/insta-name-logo.png" width="150" alt="Instagram" />
             </div>
             <div class="messages-ico">
-                <img src="icons/heart.png" width="25" alt="" /> &nbsp;
+                <img src="/icons/heart.png" width="25" alt="Notifications" /> &nbsp;
 
-                <img
-                    src="icons/messenger.png"
-                    width="25"
-                    on:click={() => redirectTo("/conversations")}
-                    alt="Messages"
-                />
+                <div class="messenger-container">
+                    <img
+                        src="/icons/messenger.png"
+                        width="25"
+                        on:click={() => redirectTo("/conversations")}
+                        alt="Messages"
+                    />
+                    {#if hasUnreadMessages}
+                        <div class="unread-indicator"></div>
+                    {/if}
+                </div>
             </div>
         </header>
         <Stories />
@@ -60,12 +53,9 @@
     </div>
 </main>
 
-<!-- end of the home home-page -->
-
 <style>
     .home-page {
         position: relative;
-        /* display: none; */
     }
 
     .home-page header {
@@ -82,5 +72,20 @@
 
     img {
         cursor: pointer;
+    }
+
+    .messenger-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .unread-indicator {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
     }
 </style>

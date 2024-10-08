@@ -28,7 +28,7 @@
   }
 
   function handleDayChange(event) {
-    selectedDay = event.target.value;
+    $selectedDay = event.target.value;  // Use $ to update the store value
     clearInterval(messageInterval);
     startSendingMessages();
   }

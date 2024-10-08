@@ -49,8 +49,6 @@ export const feedCharacters = [
         "/assets/feliz_familia/feliz_familia_08.png",
         "/assets/feliz_familia/feliz_familia_09.png",
         "/assets/feliz_familia/feliz_familia_10.png",
-        "/assets/feliz_familia/feliz_familia_11.png",
-
 
       ],
       posts: "32",
@@ -144,9 +142,6 @@ export const feedCharacters = [
         "/assets/wearethepeople/wearethepeople_12.png",
         "/assets/wearethepeople/wearethepeople_13.png",
         "/assets/wearethepeople/wearethepeople_14.png",
-        "/assets/wearethepeople/wearethepeople_15.png",
-        "/assets/wearethepeople/wearethepeople_16.png",
-
       ],
       posts: "58",
       followers: "8,135",
