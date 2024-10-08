@@ -20,6 +20,13 @@
     conversation = $storedConversations.find((c) => c.id === conversationId);
   }
 
+  let isCharacterTyping = false;
+
+
+
+  $: isCharacterTyping = conversation && conversation.waitingForReply === false && conversation.messages[conversation.messages.length - 1].day !== 'You';
+
+
   // Mark messages as read when viewing the conversation
   $: if (conversation) {
     const hasUnreadMessages = conversation.messages.some((msg) => !msg.read);
@@ -155,6 +162,12 @@
           </div>
         {/each}
       </div>
+    </div>
+
+    <div class="typing-indicator">
+      {#if isCharacterTyping}
+        <div class="typing-dots">...</div>
+      {/if}
     </div>
 
     <!-- Input Area -->
@@ -323,5 +336,29 @@
 
   .send-button:disabled {
     color: #b2dffc;
+  }
+
+  .typing-indicator {
+    padding: 8px 16px;
+    min-height: 24px; /* Ensures the space is reserved even when not typing */
+  }
+
+  .typing-dots {
+    font-size: 24px;
+    color: #8e8e8e;
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0% { opacity: 0.2; }
+    20% { opacity: 1; }
+    100% { opacity: 0.2; }
+  }
+
+  .input-container {
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    border-top: 1px solid #dbdbdb;
   }
 </style>

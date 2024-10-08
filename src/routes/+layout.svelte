@@ -183,7 +183,7 @@
     });
   }
   function getRandomDelay() {
-    return (Math.floor(Math.random() * 5) + 1) * 1000; // 1-5 seconds
+    return (Math.floor(Math.random() * 7) + 3) * 1000; // 1-5 seconds
   }
 
   function createRandomPost() {
