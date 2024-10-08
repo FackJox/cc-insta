@@ -10,10 +10,10 @@ export const conversations = [
       {
         day: 'weds',
         messages: [
-          { text: 'Are you there Ceci?', reply: ['hi', 'hello', 'yes', 'yo', 'si'], randomResponse: 'no' },
+          { text: 'Are you there Ceci?', reply: "any" },
           { text: 'Behold, Ceci! Your mystical journey unfolds before you.', reply: 'none' },
           { text: 'As you traverse towards Bologna, remember that each step is a spell cast upon your path. The universe conspires to create magic in your favor.', reply: 'none' },
-          { text: 'Can you feel the anticipation building, like energy crackling before a grand illusion? ', reply: ['yes', 'yeah', 'yes', 'yee', 'si'], randomResponse: 'no' },
+          { text: 'Can you feel the anticipation building, like energy crackling before a grand illusion? ', reply: "any" },
           { text: 'Tomorrow, your birthday shall manifest in a city where art and wonder intertwine.', reply: 'none' },
           { text: 'Though the journey may test your endurance, trust in the greater design.', reply: 'none' },
           { text: 'Rest now, for tomorrow, we shall conjure celebration in your honor!', reply: 'none' },
@@ -22,7 +22,7 @@ export const conversations = [
       {
         day: 'thurs',
         messages: [
-          { text: 'Happy Birthday, enchanting Ceci! Do you sense the mystical vibrations? ', reply: ['yes', 'yeah', 'yes', 'yee', 'si'], randomResponse: "no" },
+          { text: 'Happy Birthday, enchanting Ceci! Do you sense the mystical vibrations? ', reply: "any" },
           { text: 'Bologna vibrates with celebratory energy, as if the very stones of the city whisper your name. ', reply: 'none' },
           { text: 'The festival magic mingles with your birthday aura, creating a tapestry of wonder. ', reply: 'none' },
           { text: 'London, Bristol, and Africa await their turn in your grand illusion, but today, you are the centerpiece of this magnificent show.', reply: 'none' },
