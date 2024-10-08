@@ -20,31 +20,33 @@
     conversation = $storedConversations.find((c) => c.id === conversationId);
   }
 
-  let isCharacterTyping = false;
+  let isTyping = false;
   
   $: {
-    if (conversation) {
-      const characterMessagesForDay = conversation.messages.filter(
-        (msg) => msg.day === $selectedDay && msg.sender !== "You" && !msg.isFeedback
-      );
-      const originalConversation = conversations.find(c => c.id === conversationId);
-      const allMessagesForDay = originalConversation?.messages?.find(m => m.day === $selectedDay)?.messages || [];
-      
-      isCharacterTyping = !conversation.waitingForReply && 
-                          allMessagesForDay.length > characterMessagesForDay.length;
+  if (conversation) {
+    const characterMessagesForDay = conversation.messages.filter(
+      (msg) => msg.day === $selectedDay && msg.sender !== "You" && !msg.isFeedback
+    );
+    const originalConversation = conversations.find(c => c.id === conversationId);
+    const allMessagesForDay = originalConversation?.messages?.find(m => m.day === $selectedDay)?.messages || [];
+    
+    // Include feedbackPending in the isTyping condition
+    isTyping = feedbackPending || (!conversation.waitingForReply && 
+                allMessagesForDay.length > characterMessagesForDay.length);
 
-      console.log('Debug info:', {
-        conversationId,
-        selectedDay: $selectedDay,
-        characterMessagesForDay: characterMessagesForDay.length,
-        allMessagesForDay: allMessagesForDay.length,
-        waitingForReply: conversation.waitingForReply,
-        isCharacterTyping
-      });
-    } else {
-      isCharacterTyping = false;
-    }
+    console.log('Debug info:', {
+      conversationId,
+      selectedDay: $selectedDay,
+      characterMessagesForDay: characterMessagesForDay.length,
+      allMessagesForDay: allMessagesForDay.length,
+      waitingForReply: conversation.waitingForReply,
+      isTyping
+    });
+  } else {
+    isTyping = false;
   }
+}
+
 
   // Mark messages as read when viewing the conversation
   $: if (conversation) {
@@ -64,6 +66,9 @@
     }
   }
 
+  // Add at the top of your script
+let feedbackPending = false;
+
   function sendMessage() {
     if (newMessage.trim()) {
       const userMessage = {
@@ -80,40 +85,52 @@
 
             if (conv.waitingForReply) {
               if (conv.expectedReplyType === "any") {
-                // Any reply is acceptable, proceed to send next message
                 conv.waitingForReply = false;
                 conv.expectedReplyType = null;
               } else if (conv.expectedReplyType === "keyword") {
                 const userTextLower = newMessage.toLowerCase();
 
+                
+
                 const hasKeyword = conv.expectedKeywords.some((keyword) =>
-                  userTextLower.includes(keyword),
+                  userTextLower.includes(keyword)
                 );
 
                 const feedbackText = hasKeyword
                   ? correct[Math.floor(Math.random() * correct.length)]
                   : incorrect[Math.floor(Math.random() * incorrect.length)];
 
-                // Inside sendMessage function
-                const feedbackMessage = {
-                  text: feedbackText,
-                  timestamp: new Date().toISOString(),
-                  day: $selectedDay,
-                  read: false,
-                  isFeedback: true, // Add this line
-                };
+                  // Set feedbackPending to true before starting the timeout
+      feedbackPending = true;
 
-                conv.messages = [...conv.messages, feedbackMessage];
 
-                if (hasKeyword) {
-                  conv.waitingForReply = false;
-                  conv.expectedReplyType = null;
-                  conv.expectedKeywords = null;
-                  // The next message will be sent by the interval in +layout.svelte
-                }
-                // Else, keep waitingForReply as true
+                // Delay sending the feedback message
+                setTimeout(() => {
+                  storedConversations.update((updatedConvs) => {
+                    return updatedConvs.map((updatedConv) => {
+                      if (updatedConv.id === conversationId) {
+                        const feedbackMessage = {
+                          text: feedbackText,
+                          timestamp: new Date().toISOString(),
+                          day: $selectedDay,
+                          read: false,
+                          isFeedback: true,
+                        };
+                        updatedConv.messages = [...updatedConv.messages, feedbackMessage];
+
+                        if (hasKeyword) {
+                          updatedConv.waitingForReply = false;
+                          updatedConv.expectedReplyType = null;
+                          updatedConv.expectedKeywords = null;
+                        }
+                      }
+                      return updatedConv;
+                    });
+                  });
+                    // Set feedbackPending back to false after sending the feedback
+        feedbackPending = false;
+                }, Math.floor(Math.random() * 2000) + 3000); // Random delay between 3-5 seconds
               }
-              // For 'none', we shouldn't be waiting for a reply
             }
 
             return conv;
@@ -125,7 +142,6 @@
       newMessage = "";
     }
   }
-
   function goBack() {
     goto("/conversations");
   }
@@ -183,11 +199,12 @@
       </div>
     </div>
 
-    <div class="typing-indicator">
-      {#if isCharacterTyping}
-        <div class="typing-dots">...</div>
-      {/if}
-    </div>
+   <!-- In the template section -->
+<div class="typing-indicator">
+  {#if isTyping}
+    <div class="typing-dots">...</div>
+  {/if}
+</div>
 
     <!-- Input Area -->
     <div class="input-container">
@@ -359,7 +376,7 @@
 
   .typing-indicator {
     padding: 8px 16px;
-    min-height: 24px; /* Ensures the space is reserved even when not typing */
+    min-height: 8px; /* Ensures the space is reserved even when not typing */
   }
 
   .typing-dots {
