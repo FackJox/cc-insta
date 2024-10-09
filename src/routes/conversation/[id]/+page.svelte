@@ -148,6 +148,10 @@ let feedbackPending = false;
     goto("/conversations");
   }
 
+  function navigateToProfile(username) {
+        goto(`/profile/${username}`);
+    }
+
   // Function to format the timestamp
   function formatLastMessaged(date) {
     const now = new Date();
