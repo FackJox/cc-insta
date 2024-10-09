@@ -50,7 +50,7 @@ export const conversations = [
     character: {
       name: 'The Fool',
       username: 'foolishways',
-      image: '/assets/unknown-profile.png',
+      image: '/assets/fool/fool_01.png',
     },
     messages: [
       {

@@ -1,3 +1,36 @@
+<script>
+    import { feedCharacters } from '$lib/feedCharacters.js';
+    import { mainCharacters } from '$lib/mainCharacters.js';
+    import { onMount } from 'svelte';
+
+    let allCharacters = [...feedCharacters, ...mainCharacters];
+    let displayedImages = [];
+    let searchTerm = '';
+
+    function getRandomImages(count) {
+        let allImages = allCharacters.flatMap(char => char.postImages);
+        let shuffled = allImages.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }
+
+    function searchImages() {
+        if (searchTerm.trim() === '') {
+            displayedImages = getRandomImages(12);
+        } else {
+            let filteredImages = allCharacters.flatMap(char => 
+                char.postImages.filter(img => 
+                    img.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+            );
+            displayedImages = filteredImages.slice(0, 12);
+        }
+    }
+
+    onMount(() => {
+        displayedImages = getRandomImages(12);
+    });
+</script>
+
 <main>
     <div class="search-page" id="search-page">
         <div class="search-container">
@@ -6,26 +39,22 @@
                 name="searchbar"
                 id="search"
                 placeholder="Search"
-                onfocus="explore.style.display='none'"
-                onblur="explore.style.display='block'"
+                bind:value={searchTerm}
+                on:input={searchImages}
             />
         </div>
         <div class="explore" id="explore">
-            <div class="row">
-                <img src="assets/abp.jpg" alt="" />
-                <img src="assets/krish.jpg" alt="" />
-                <img src="assets/aditya.jpg" alt="" />
-            </div>
-            <div class="row">
-                <img src="assets/akash.webp" alt="" />
-                <img src="assets/jay.jpg" alt="" />
-                <img src="assets/unknown-profile.png" alt="" />
-            </div>
-            <div class="row">
-                <img src="assets/tripripost.jpg" alt="" />
-                <img src="assets/travel.jpg" alt="" />
-                <img src="assets/tripti.jpg" alt="" />
-            </div>
+            {#each Array(4) as _, rowIndex}
+                <div class="row">
+                    {#each Array(3) as _, colIndex}
+                        {#if displayedImages[rowIndex * 3 + colIndex]}
+                            <img src={displayedImages[rowIndex * 3 + colIndex]} alt="" />
+                        {:else}
+                            <div class="empty-image"></div>
+                        {/if}
+                    {/each}
+                </div>
+            {/each}
         </div>
     </div>
 </main>
@@ -68,8 +97,12 @@
         gap: 2px;
         margin-bottom: 2px;
     }
-    .search-page .explore .row img {
+    .search-page .explore .row img, .search-page .explore .row .empty-image {
         width: 32%;
+        aspect-ratio: 1 / 1;
         object-fit: cover;
+    }
+    .empty-image {
+        background-color: #f0f0f0;
     }
 </style>
