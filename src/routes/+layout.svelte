@@ -53,7 +53,7 @@
   onMount(() => {
     setTimeout(() => {
       loading = false;
-    }, 1000);
+    }, 5000);
 
 
     $selectedDay = getCurrentDay();
