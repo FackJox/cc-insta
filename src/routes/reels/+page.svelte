@@ -6,7 +6,7 @@
         "assets/videos/v1.mp4",
         "assets/videos/v2.mp4",
         "assets/videos/v3.mp4",
-        "assets/videos/v4.MP4",
+        "assets/videos/v4.mp4",
         "assets/videos/v5.mp4",
         "assets/videos/v9.mp4"
     ];
