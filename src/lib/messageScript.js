@@ -149,7 +149,7 @@ export const conversations = [
         messages: [
           { text: 'Ceci, you are a world unto yourself, a universe of infinite possibilities. ', reply: 'any' },
           { text: 'Bologna still reverberates with the echoes of your birthday jubilation, while future adventures beckon on the horizon. ', reply: 'none' },
-          { text: 'Your next quest: Journey to the MAST Foundation and discover the exhibit that weaves a thread between Bologna and one of your future destinations. ', reply: 'any' },
+          { text: 'Your next task: Journey to the MAST Foundation and discover the exhibit that weaves a thread between Bologna and one of your future destinations. ', reply: 'any' },
           { text: 'What whispers of wisdom does it offer for your impending odyssey? ', reply: 'any' },
           { text: 'Let the art speak to your soul and guide your path across the globe.', reply: 'none' },     
         ]
@@ -173,7 +173,7 @@ export const conversations = [
           { text: 'Your path shall carry you beyond the veil of the familiar — to Londons mists, Bristols rolling hills, and eventually to Africas sun-kissed lands. ', reply: 'none' },
           { text: 'I am always running but never move. What am I? ', reply: ["time", "clock"] },
           { text: 'Make sure to see the astronomical clock in Piazza Maggiore.', reply: 'none' },
-          { text: 'There, make a wish for each of your future adventures, letting the cosmic timepiece set your dreams in motion!', reply: 'any' },
+          { text: 'There, make a wish for each of your future adventures, letting the cosmic timepiece set your dreams in motion!', reply: 'none' },
       
         ]
       },
@@ -193,8 +193,7 @@ export const conversations = [
 
         messages: [
           { text: 'Happy birthday for yesterday Ceci!! ', reply: 'any' },
-
-          { text: 'Are you ready to gear up for the epic van adventures that await you??', reply: 'any' },
+          { text: 'Are you ready to gear up for the exciting van adventures that await you??', reply: 'any' },
           { text: 'But before you hit the open road, let us honor your nomadic spirit right here in Bologna. ', reply: 'none' },
           { text: 'Your mission: Seek out the legendary Neptunes Fountain in Piazza del Nettuno.', reply: 'none' },
           { text: 'Okay Ceci?', reply: 'any' },
@@ -211,8 +210,8 @@ export const conversations = [
 
         messages: [
           { text: 'Ceci, your path is illuminated by the stars of possibility, each one a beacon guiding you to new horizons! ', reply: 'none' },
-          { text: 'After the art-filled streets of Bologna, the bustling city of London calls your name, followed by the freedom of van life in Bristol, and finally, the wild beauty of Africa. Are you excited?? ', reply: 'any' },
-          { text: 'I can see it now - there will be so much joy caring for a furry friend in London, embracing the nomadic lifestyle in Bristol, and ringing in the New Year at a vibrant festival in Kenya! ', reply: 'none' },
+          { text: 'After the art-filled streets of Bologna, the bustling city of London calls your name, followed by the freedom of cosy van days in Bristol, and finally, the wild beauty of Africa. Are you excited?? ', reply: 'any' },
+          { text: 'I can see it now - there will be so much joy caring for your furry friend, embracing the nomadic lifestyle, and ringing in the New Year at a vibrant festival in Kenya! ', reply: 'none' },
           { text: 'But for now, let us focus on the present adventure. ', reply: 'none' },
           { text: 'Let your inner eye guide you through the labyrinth of possibility.', reply: 'none' },
           { text: 'Embrace your partner, and embrace the travels ahead.', reply: 'none' },

@@ -76,7 +76,7 @@
     cursor: pointer;
   }
   :global(.message-header) {
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 1; /* Ensure it stays above other content */
     background-color: white; /* Set a background color to avoid overlap issues */

@@ -149,6 +149,7 @@ let feedbackPending = false;
   }
 
   function navigateToProfile(username) {
+        console.log("🚀 ~ navigateToProfile ~ username:", username)
         goto(`/profile/${username}`);
     }
 
@@ -182,7 +183,7 @@ let feedbackPending = false;
         />
         <span
           class="username"
-          on:click={() => navigateToProfile(conversation.character)}
+          on:click={() => navigateToProfile(conversation.character.username)}
         >
           {conversation.character.name}
         </span>
@@ -237,7 +238,7 @@ let feedbackPending = false;
   .conversation {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 40px); /* Subtract the height of the navigation bar */
+    height: calc(100vh - 48px); /* Subtract the height of the navigation bar */
     background-color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif;
@@ -247,6 +248,8 @@ let feedbackPending = false;
     display: flex;
     align-items: center;
     padding: 10px 16px;
+    position: sticky;
+    top: 0px;
     border-bottom: 1px solid #dbdbdb;
     background-color: #fff;
   }

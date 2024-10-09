@@ -59,16 +59,16 @@
     }
 
     .home-page header {
-        display: flex;
-        background-color: white;
-        flex-direction: row;
-        place-items: center;
-        place-content: space-between;
-        padding: 10px;
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
+    display: flex;
+    background-color: white;
+    flex-direction: row;
+    place-items: center;
+    place-content: space-between;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
 
     img {
         cursor: pointer;

@@ -110,7 +110,7 @@
 
 <style>
  .story-section {
-  width: 100%;
+  width: 99%;
   height: auto;
   position: relative;
   display: flex;
