@@ -12,6 +12,8 @@
   const storedConversations = getContext("storedConversations");
   const selectedDay = getContext("selectedDay");
 
+  console.log("selectedDay", $selectedDay)
+
   // Access the value of the stores using $ prefix
   $: {
     // Get the conversation ID from the URL

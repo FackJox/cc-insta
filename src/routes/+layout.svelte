@@ -14,8 +14,25 @@
   setContext("storedConversations", storedConversations);
   setContext("storedPosts", storedPosts);
 
-  // Define selectedDay as a writable store
-  let selectedDay = writable("weds"); // Default selected day
+  // Define the day lookup
+  const dayLookup = {
+    0: "sun",
+    1: "mon",
+    2: "tues",
+    3: "weds",
+    4: "thurs",
+    5: "fri",
+    6: "sat"
+  };
+
+  // Function to get the current day
+  function getCurrentDay() {
+    const today = new Date().getDay();
+    return dayLookup[today] || "weds"; // Default to "weds" if lookup fails
+  }
+
+  // Initialize selectedDay as a writable store with the current day
+  let selectedDay = writable(getCurrentDay());
   setContext("selectedDay", selectedDay);
 
   let messageInterval;
@@ -37,6 +54,9 @@
     setTimeout(() => {
       loading = false;
     }, 1000);
+
+
+    $selectedDay = getCurrentDay();
 
     // Initialize storedConversations
     let loadedConversations =
@@ -242,14 +262,14 @@
 </script>
 
 <div class="day-selector-container">
-  <div class="day-selector">
+  <!-- <div class="day-selector">
     <select bind:value={$selectedDay} on:change={handleDayChange}>
       <option value="weds">Wednesday</option>
       <option value="thurs">Thursday</option>
       <option value="fri">Friday</option>
       <option value="sat">Saturday</option>
     </select>
-  </div>
+  </div> -->
   <button class="reset-button" on:click={resetDayAndClearStorage}>
     Reset
   </button>
