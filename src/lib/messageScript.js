@@ -170,7 +170,7 @@ export const conversations = [
         messages: [
           { text: 'Greetings, Ceci, seeker of ancient wisdom, beloved of the Fates.', reply: 'any' },
           { text: 'The air of Bologna whispers secrets, and within you lies a sacred knowing.', reply: 'none' },
-          { text: 'Your path shall carry you beyond the veil of the familiar — to Londons mists, Bristols rolling hills, and eventually to Africas sun-kissed lands. ', reply: 'none' },
+          { text: 'Your path shall carry you beyond the veil of the familiar — to Londons friends, Bristols times, and eventually to Africas sun-kissed lands. ', reply: 'none' },
           { text: 'I am always running but never move. What am I? ', reply: ["time", "clock"] },
           { text: 'Make sure to see the astronomical clock in Piazza Maggiore.', reply: 'none' },
           { text: 'There, make a wish for each of your future adventures, letting the cosmic timepiece set your dreams in motion!', reply: 'none' },
