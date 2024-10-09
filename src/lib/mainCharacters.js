@@ -26,8 +26,8 @@ export const mainCharacters = [
         name: "Ceci Summer",
         initialPosts: "",
         highlights: [
-          { title: "New Collection", picture: "/assets/couture_story1.webp" },
-          { title: "Behind the Scenes", picture: "/assets/couture_story2.webp" }
+          { title: "Bologna", picture: "/assets/ceci/ceci_13.png" },
+          { title: "Paris", picture: "/assets/ceci/ceci_15.png" }
         ]
       },
       {
@@ -47,16 +47,14 @@ export const mainCharacters = [
         name: "The Magician",
         initialPosts: "",
         highlights: [
-          { title: "Family Dinner", picture: "/assets/familia_story1.webp" },
-          { title: "Weekend Trip", picture: "/assets/familia_story2.webp" }
+          { title: "Magic Shows", picture: "/assets/magician/magician_05.png" },
+          { title: "Illuminationary", picture: "/assets/magician/magician_04.png" }
         ]
       },
       {
         profilePic: "/assets/fool/fool_01.png",
         username: "foolishways",
         postImages: [
-          "/assets/fool/fool_01.png",
-          "/assets/fool/fool_01.png",
           "/assets/fool/fool_01.png",
         ],
         posts: "1",
@@ -65,8 +63,7 @@ export const mainCharacters = [
         name: "The Fool",
         initialPosts: "",
         highlights: [
-          { title: "Tech News", picture: "/assets/info_story1.webp" },
-          { title: "Data Viz", picture: "/assets/info_story2.webp" }
+          { title: "Foolery", picture: "/assets/fool/fool_01.png" },
         ]
       },
       {
@@ -90,8 +87,8 @@ export const mainCharacters = [
         name: "The Empress",
         initialPosts: "",
         highlights: [
-          { title: "VR Demo", picture: "/assets/reality_story1.webp" },
-          { title: "AR Showcase", picture: "/assets/reality_story2.webp" }
+          { title: "Court", picture: "/assets/empress/empress_09.png" },
+          { title: "Queendom", picture: "/assets/empress/empress_08.png" }
         ]
       },
       {
@@ -114,8 +111,8 @@ export const mainCharacters = [
         name: "The World",
         initialPosts: "",
         highlights: [
-          { title: "Community Event", picture: "/assets/people_story1.webp" },
-          { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+          { title: "Community", picture: "/assets/world/world_08.png" },
+          { title: "Exploration", picture: "/assets/world/world_09.png" }
         ]
       },
       {
@@ -137,8 +134,10 @@ export const mainCharacters = [
         name: "The High Priestess",
         initialPosts: "",
         highlights: [
-          { title: "Community Event", picture: "/assets/people_story1.webp" },
-          { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+          { title: "Meditations", picture: "/assets/highpriestess/highpriestess_07.png" },
+          { title: "Followers", picture: "/assets/highpriestess/highpriestess_06.png" },
+          { title: "Savior", picture: "/assets/highpriestess/highpriestess_05.png" }
+
         ]
       },
       {
@@ -159,8 +158,7 @@ export const mainCharacters = [
         name: "The Chariot",
         initialPosts: "",
         highlights: [
-          { title: "Community Event", picture: "/assets/people_story1.webp" },
-          { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+          { title: "Van Life", picture: "/assets/chariot/chariot_07.png" },
         ]
       },
       {
@@ -179,8 +177,8 @@ export const mainCharacters = [
         name: "The Lovers",
         initialPosts: "",
         highlights: [
-          { title: "Community Event", picture: "/assets/people_story1.webp" },
-          { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+          { title: "Two in One", picture: "/assets/lovers/lovers_05.png" },
+          { title: "One in Two", picture: "/assets/lovers/lovers_04.png" }
         ]
       },
   ];

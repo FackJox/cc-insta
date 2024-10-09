@@ -31,8 +31,8 @@ export const feedCharacters = [
       name: "Culture by Couture",
       initialPosts: "",
       highlights: [
-        { title: "New Collection", picture: "/assets/couture_story1.webp" },
-        { title: "Behind the Scenes", picture: "/assets/couture_story2.webp" }
+        { title: "New Collection", picture: "/assets/_couture/_couture_21.png" },
+        { title: "Behind the Scenes", picture: "/assets/_couture/_couture_20.png" }
       ]
     },
     {
@@ -57,8 +57,8 @@ export const feedCharacters = [
       name: "La Familia",
       initialPosts: "",
       highlights: [
-        { title: "Family Dinner", picture: "/assets/familia_story1.webp" },
-        { title: "Weekend Trip", picture: "/assets/familia_story2.webp" }
+        { title: "Family Dinner", picture: "/assets/feliz_familia/feliz_familia_09.png" },
+        { title: "Weekend Trip", picture: "/assets/feliz_familia/feliz_familia_10.png" }
       ]
     },
     {
@@ -92,8 +92,8 @@ export const feedCharacters = [
       name: "Information Overload",
       initialPosts: "",
       highlights: [
-        { title: "Tech News", picture: "/assets/info_story1.webp" },
-        { title: "Data Viz", picture: "/assets/info_story2.webp" }
+        { title: "News", picture: "/assets/infoverload7/infoverload7_20.png" },
+        { title: "Information", picture: "/assets/infoverload7/infoverload7_19.png" }
       ]
     },
     {
@@ -120,8 +120,8 @@ export const feedCharacters = [
       name: "Project Reality",
       initialPosts: "",
       highlights: [
-        { title: "VR Demo", picture: "/assets/reality_story1.webp" },
-        { title: "AR Showcase", picture: "/assets/reality_story2.webp" }
+        { title: "Real Life", picture: "/assets/projectreality/projectreality_12.png" },
+        { title: "Showcase", picture: "/assets/projectreality/projectreality_13.png" }
       ]
     },
     {
@@ -149,8 +149,8 @@ export const feedCharacters = [
       name: "We are the People",
       initialPosts: "",
       highlights: [
-        { title: "Community Event", picture: "/assets/people_story1.webp" },
-        { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+        { title: "Community Event", picture: "/assets/wearethepeople/wearethepeople_13.png" },
+        { title: "Volunteer Day", picture: "/assets/wearethepeople/wearethepeople_14.png" }
       ]
     },
     {
@@ -173,8 +173,7 @@ export const feedCharacters = [
       name: "Jenny Rational-all",
       initialPosts: "",
       highlights: [
-        { title: "Community Event", picture: "/assets/people_story1.webp" },
-        { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+        { title: "Change", picture: "/assets/jenny.ration.all/jenny.ration.all_07.png" },
       ]
     },
     {
@@ -200,8 +199,12 @@ export const feedCharacters = [
       name: "Give me your money",
       initialPosts: "",
       highlights: [
-        { title: "Community Event", picture: "/assets/people_story1.webp" },
-        { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+        { title: "BEST ITEMS", picture: "/assets/scroll.n.buy/scroll.n.buy_12.png" },
+        { title: "CHEAP PRICE", picture: "/assets/scroll.n.buy/scroll.n.buy_12.png" },
+        { title: "DEAL DEAL", picture: "/assets/scroll.n.buy/scroll.n.buy_12.png" },
+        { title: "BUY NOW", picture: "/assets/scroll.n.buy/scroll.n.buy_12.png" }
+
+
       ]
     },
     {
@@ -230,8 +233,10 @@ export const feedCharacters = [
       name: "So Sigh Itty",
       initialPosts: "",
       highlights: [
-        { title: "Community Event", picture: "/assets/people_story1.webp" },
-        { title: "Volunteer Day", picture: "/assets/people_story2.webp" }
+        { title: "So", picture: "/assets/so.sighitty/so.sighitty_14.png" },
+        { title: "Sigh", picture: "/assets/so.sighitty/so.sighitty_15.png" },
+        { title: "Itty", picture: "/assets/so.sighitty/so.sighitty_13.png" }
+
       ]
     },
 ];
