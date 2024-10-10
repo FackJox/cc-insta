@@ -106,7 +106,7 @@
     startSendingMessages();
 
     // Start creating random posts every 10 seconds
-    setInterval(createAndStoreRandomPost, 10000);
+    setInterval(createAndStoreRandomPost, 45000);
   });
   
 
