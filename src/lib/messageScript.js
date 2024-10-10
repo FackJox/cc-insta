@@ -9,6 +9,8 @@ export const conversations = [
     messages: [
       {
         day: 'weds',
+        startTime: '20:00',
+
         messages: [
           { text: 'Are you there Ceci?', reply: "any" },
           { text: 'Behold, Ceci! Your mystical journey unfolds before you.', reply: 'none' },
@@ -21,6 +23,8 @@ export const conversations = [
       },
       {
         day: 'thurs',
+        startTime: '10:25',
+
         messages: [
           { text: 'Happy Birthday, enchanting Ceci! Do you sense the mystical vibrations? ', reply: "any" },
           { text: 'Bologna vibrates with celebratory energy, as if the very stones of the city whisper your name. ', reply: 'none' },
@@ -31,6 +35,8 @@ export const conversations = [
       },
       {
         day: 'sun',
+        startTime: '09:05',
+
         messages: [
           { text: 'Ceci, your journey is a grand tapestry of cosmic design. From the artistry of Bologna to the mystique of London, from the nomadic enchantment of Bristol to the wild magic of Africa - each thread gleams with possibility.  ', reply: 'none' },
           { text: 'As the flame flickers, envision the exhilaration of celebrating New Years Eve at a Kenyan festival, dancing beneath a canopy of stars. ', reply: 'none' },
@@ -49,6 +55,7 @@ export const conversations = [
     messages: [
       {
         day: 'weds',
+        startTime: '20:25',
         messages: [
           { text: 'Ooh-la-la, Ceci! Your path to Italy might be as twisty as spaghetti, but isnt that where the yummiest stories begin? ', reply: "any" },
           { text: 'This journey is just the appetiser before the grand birthday feast of fun! ', reply: "none" },
@@ -58,6 +65,7 @@ export const conversations = [
       },
       {
         day: 'thurs',
+        startTime: '13:00',
         messages: [
           { text: 'Ceci-licious! Happy Birthday, you marvelous mischief-maker! ', reply: 'none' },
           { text: 'The streets of Bologna are jiggling with arty-party fun, possibili-bubbles, and birthday magic! ', reply: 'none' },
@@ -83,6 +91,7 @@ export const conversations = [
     messages: [
       {
         day: 'thurs',
+        startTime: '17:00',
         messages: [
           { text: 'Oh, radiant Ceci, on this most precious day of your birth, your beauty outshines even the most exquisite masterpieces of Bologna.', reply: 'any' },
           { text: 'Let your spirit bloom amidst the vibrant petals of the art festival. ', reply: 'none' },
@@ -91,6 +100,7 @@ export const conversations = [
       },
       {
         day: 'sat',
+        startTime: '14:00',
         messages: [
           { text: 'Ceci, my luminous flower, your beauty mirrors the worlds splendor around you.', reply: 'none' },
           { text: 'As the art festival reaches its crescendo, so too does your excitement for the adventures that await you. ', reply: 'none' },
@@ -113,6 +123,7 @@ export const conversations = [
     messages: [
       {
         day: 'thurs',
+        startTime: '20:00',
         messages: [
           { text: 'Ceci, on this day of your birth, I offer you not congratulations, but contemplation.', reply: 'any' },
           { text: 'Your spirit of adventure is a flame in the darkness.', reply: 'none' },
@@ -134,6 +145,7 @@ export const conversations = [
     messages: [
       {
         day: 'fri',
+        startTime: '14:00',
         messages: [
           { text: 'Ceci, you are a world unto yourself, a universe of infinite possibilities. ', reply: 'any' },
           { text: 'Bologna still reverberates with the echoes of your birthday jubilation, while future adventures beckon on the horizon. ', reply: 'none' },
@@ -154,6 +166,7 @@ export const conversations = [
     messages: [
       {
         day: 'fri',
+        startTime: '16:00',
         messages: [
           { text: 'Greetings, Ceci, seeker of ancient wisdom, beloved of the Fates.', reply: 'any' },
           { text: 'The air of Bologna whispers secrets, and within you lies a sacred knowing.', reply: 'none' },
@@ -176,6 +189,8 @@ export const conversations = [
     messages: [
       {
         day: 'fri',
+        startTime: '09:00',
+
         messages: [
           { text: 'Happy birthday for yesterday Ceci!! ', reply: 'any' },
 
@@ -192,6 +207,8 @@ export const conversations = [
 
       {
         day: 'sat',
+        startTime: '18:00',
+
         messages: [
           { text: 'Ceci, your path is illuminated by the stars of possibility, each one a beacon guiding you to new horizons! ', reply: 'none' },
           { text: 'After the art-filled streets of Bologna, the bustling city of London calls your name, followed by the freedom of van life in Bristol, and finally, the wild beauty of Africa. Are you excited?? ', reply: 'any' },
@@ -215,6 +232,8 @@ export const conversations = [
     messages: [
       {
         day: 'sat',
+        startTime: '17:00',
+
         messages: [
           { text: 'Our darling Ceci, how the celebrations of love continue to blossom! ', reply: 'none' },
           { text: 'Today is a symphony of joy and affection.', reply: 'none' },

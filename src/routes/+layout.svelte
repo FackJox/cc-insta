@@ -108,64 +108,70 @@
     // Start creating random posts every 10 seconds
     setInterval(createAndStoreRandomPost, 10000);
   });
+  
 
   function startSendingMessages() {
-    clearInterval(messageInterval);
-    messageInterval = setInterval(() => {
-      const dayMessages = getDayMessages($selectedDay).filter((conv) => {
-        // Only send messages if not waiting for reply
-        const storedConv = $storedConversations.find((sc) => sc.id === conv.id);
-        return storedConv && !storedConv.waitingForReply;
+  clearInterval(messageInterval);
+  messageInterval = setInterval(() => {
+    const dayMessages = getDayMessages($selectedDay).filter((conv) => {
+      const storedConv = $storedConversations.find((sc) => sc.id === conv.id);
+      return storedConv && !storedConv.waitingForReply;
+    });
+    if (dayMessages.length > 0) {
+      dayMessages.forEach((conversation) => {
+        sendNextMessage(conversation.id, conversation.messages, conversation.startTime);
       });
-      if (dayMessages.length > 0) {
-        dayMessages.forEach((conversation) => {
-          sendNextMessage(conversation.id, conversation.messages);
-        });
-      }
-    }, getRandomDelay());
-  }
+    }
+  }, getRandomDelay());
+}
 
-  function getDayMessages(day) {
-    return conversations
-      .filter((conv) => conv.messages.some((msg) => msg.day === day))
-      .map((conv) => ({
+function getDayMessages(day) {
+  return conversations
+    .filter((conv) => conv.messages.some((msg) => msg.day === day))
+    .map((conv) => {
+      const dayMessage = conv.messages.find((msg) => msg.day === day);
+      return {
         id: conv.id,
-        messages: conv.messages.find((msg) => msg.day === day).messages,
-      }));
-  }
+        messages: dayMessage.messages,
+        startTime: dayMessage.startTime,
+      };
+    });
+}
+  function sendNextMessage(conversationId, messages, startTime) {
+  storedConversations.update((convs) => {
+    let updatedConvs = [...convs];
+    let conversation = updatedConvs.find((c) => c.id === conversationId);
+    if (!conversation) {
+      const originalConv = conversations.find((c) => c.id === conversationId);
+      conversation = {
+        id: conversationId,
+        character: originalConv.character,
+        messages: [],
+        waitingForReply: false,
+      };
+      updatedConvs.push(conversation);
+    }
 
-  function sendNextMessage(conversationId, messages) {
-    storedConversations.update((convs) => {
-      let updatedConvs = [...convs];
-      let conversation = updatedConvs.find((c) => c.id === conversationId);
-      if (!conversation) {
-        const originalConv = conversations.find((c) => c.id === conversationId);
-        conversation = {
-          id: conversationId,
-          character: originalConv.character,
-          messages: [],
-          waitingForReply: false,
-        };
-        updatedConvs.push(conversation);
-      }
+    if (conversation.waitingForReply) {
+      return updatedConvs;
+    }
 
-      if (conversation.waitingForReply) {
-        // Do not send the next message until the user responds appropriately
-        return updatedConvs;
-      }
+    // Get all character messages for the selected day
+    const characterMessagesForDay = conversation.messages.filter(
+      (msg) => msg.day === $selectedDay && msg.day !== "You" && !msg.isFeedback
+    );
 
-      // Get all character messages for the selected day
-      const characterMessagesForDay = conversation.messages.filter(
-        (msg) =>
-          msg.day === $selectedDay && msg.day !== "You" && !msg.isFeedback
-      );
+    if (characterMessagesForDay.length >= messages.length) {
+      return updatedConvs;
+    }
 
-      if (characterMessagesForDay.length >= messages.length) {
-        return updatedConvs; // Exit if all messages for this day have been sent
-      }
+    const messagesSentForDay = characterMessagesForDay.length;
+    const nextMessageIndex = messagesSentForDay;
 
-      const messagesSentForDay = characterMessagesForDay.length;
-      const nextMessageIndex = messagesSentForDay;
+    // Check if it's the first message of the day and if the start time has passed
+    if (nextMessageIndex === 0 && !isStartTimePassed(startTime)) {
+      return updatedConvs;
+    }
 
       // Get the previous character message
       const previousMessage =
@@ -203,6 +209,13 @@
     });
   }
 
+  // Helper function to check if the start time has passed
+function isStartTimePassed(startTime) {
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const now = new Date();
+  const startDateTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+  return now >= startDateTime;
+}
 
   function getRandomDelay() {
     return (Math.floor(Math.random() * 7) + 3) * 1000; // 1-5 seconds
@@ -261,19 +274,19 @@
   }
 </script>
 
-<div class="day-selector-container">
-  <!-- <div class="day-selector">
+<!-- <div class="day-selector-container">
+  <div class="day-selector">
     <select bind:value={$selectedDay} on:change={handleDayChange}>
       <option value="weds">Wednesday</option>
       <option value="thurs">Thursday</option>
       <option value="fri">Friday</option>
       <option value="sat">Saturday</option>
     </select>
-  </div> -->
+  </div> 
   <button class="reset-button" on:click={resetDayAndClearStorage}>
     Reset
   </button>
-</div>
+</div> -->
 
 {#if loading}
   <Loader />
